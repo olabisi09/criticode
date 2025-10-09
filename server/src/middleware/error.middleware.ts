@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
 /**
  * Base custom error class
@@ -33,9 +33,9 @@ export abstract class AppError extends Error {
  * Used for input validation failures, malformed requests, etc.
  */
 export class ValidationError extends AppError {
-  constructor(message: string = "Validation failed", details?: any) {
+  constructor(message: string = 'Validation failed', details?: any) {
     super(message, 400, true, details);
-    this.name = "ValidationError";
+    this.name = 'ValidationError';
     Object.setPrototypeOf(this, ValidationError.prototype);
   }
 }
@@ -45,9 +45,9 @@ export class ValidationError extends AppError {
  * Used for authentication failures, invalid tokens, etc.
  */
 export class AuthenticationError extends AppError {
-  constructor(message: string = "Authentication required", details?: any) {
+  constructor(message: string = 'Authentication required', details?: any) {
     super(message, 401, true, details);
-    this.name = "AuthenticationError";
+    this.name = 'AuthenticationError';
     Object.setPrototypeOf(this, AuthenticationError.prototype);
   }
 }
@@ -57,9 +57,9 @@ export class AuthenticationError extends AppError {
  * Used when user is authenticated but lacks required permissions
  */
 export class AuthorizationError extends AppError {
-  constructor(message: string = "Insufficient permissions", details?: any) {
+  constructor(message: string = 'Insufficient permissions', details?: any) {
     super(message, 403, true, details);
-    this.name = "AuthorizationError";
+    this.name = 'AuthorizationError';
     Object.setPrototypeOf(this, AuthorizationError.prototype);
   }
 }
@@ -69,9 +69,9 @@ export class AuthorizationError extends AppError {
  * Used for resources that don't exist
  */
 export class NotFoundError extends AppError {
-  constructor(message: string = "Resource not found", details?: any) {
+  constructor(message: string = 'Resource not found', details?: any) {
     super(message, 404, true, details);
-    this.name = "NotFoundError";
+    this.name = 'NotFoundError';
     Object.setPrototypeOf(this, NotFoundError.prototype);
   }
 }
@@ -81,9 +81,9 @@ export class NotFoundError extends AppError {
  * Used for conflicts like duplicate resources, concurrent modifications, etc.
  */
 export class ConflictError extends AppError {
-  constructor(message: string = "Conflict occurred", details?: any) {
+  constructor(message: string = 'Conflict occurred', details?: any) {
     super(message, 409, true, details);
-    this.name = "ConflictError";
+    this.name = 'ConflictError';
     Object.setPrototypeOf(this, ConflictError.prototype);
   }
 }
@@ -96,12 +96,12 @@ export class RateLimitError extends AppError {
   public readonly retryAfter?: number | undefined;
 
   constructor(
-    message: string = "Rate limit exceeded",
+    message: string = 'Rate limit exceeded',
     retryAfter?: number,
     details?: any
   ) {
     super(message, 429, true, details);
-    this.name = "RateLimitError";
+    this.name = 'RateLimitError';
     this.retryAfter = retryAfter;
     Object.setPrototypeOf(this, RateLimitError.prototype);
   }
@@ -113,11 +113,11 @@ export class RateLimitError extends AppError {
  */
 export class InternalServerError extends AppError {
   constructor(
-    message: string = "Internal server error occurred",
+    message: string = 'Internal server error occurred',
     details?: any
   ) {
     super(message, 500, false, details);
-    this.name = "InternalServerError";
+    this.name = 'InternalServerError';
     Object.setPrototypeOf(this, InternalServerError.prototype);
   }
 }
@@ -128,11 +128,11 @@ export class InternalServerError extends AppError {
  */
 export class ServiceUnavailableError extends AppError {
   constructor(
-    message: string = "Service temporarily unavailable",
+    message: string = 'Service temporarily unavailable',
     details?: any
   ) {
     super(message, 503, true, details);
-    this.name = "ServiceUnavailableError";
+    this.name = 'ServiceUnavailableError';
     Object.setPrototypeOf(this, ServiceUnavailableError.prototype);
   }
 }
@@ -168,8 +168,8 @@ export const errorHandler = (
 
   // Default error values
   let statusCode = 500;
-  let errorName = "InternalServerError";
-  let message = "Something went wrong";
+  let errorName = 'InternalServerError';
+  let message = 'Something went wrong';
   let details: any = undefined;
 
   // Handle our custom AppError instances
@@ -186,7 +186,7 @@ export const errorHandler = (
         path: req.path,
         method: req.method,
         ip: req.ip,
-        userAgent: req.get("User-Agent"),
+        userAgent: req.get('User-Agent'),
         details: err.details,
       });
     } else {
@@ -195,17 +195,17 @@ export const errorHandler = (
         path: req.path,
         method: req.method,
         ip: req.ip,
-        userAgent: req.get("User-Agent"),
+        userAgent: req.get('User-Agent'),
         stack: err.stack,
         details: err.details,
       });
     }
   }
-  // Handle Mongoose validation errors
-  else if (err.name === "ValidationError" && "errors" in err) {
+  // Handle validation errors
+  else if (err.name === 'ValidationError' && 'errors' in err) {
     statusCode = 400;
-    errorName = "ValidationError";
-    message = "Data validation failed";
+    errorName = 'ValidationError';
+    message = 'Data validation failed';
     details = Object.values((err as any).errors).map((e: any) => ({
       field: e.path,
       message: e.message,
@@ -218,11 +218,11 @@ export const errorHandler = (
       details,
     });
   }
-  // Handle Mongoose cast errors
-  else if (err.name === "CastError") {
+  // Handle cast errors
+  else if (err.name === 'CastError') {
     statusCode = 400;
-    errorName = "ValidationError";
-    message = "Invalid data format";
+    errorName = 'ValidationError';
+    message = 'Invalid data format';
     details = {
       field: (err as any).path,
       value: (err as any).value,
@@ -236,19 +236,19 @@ export const errorHandler = (
     });
   }
   // Handle JWT errors
-  else if (err.name === "JsonWebTokenError") {
+  else if (err.name === 'JsonWebTokenError') {
     statusCode = 401;
-    errorName = "AuthenticationError";
-    message = "Invalid token";
+    errorName = 'AuthenticationError';
+    message = 'Invalid token';
 
     console.info(`[JsonWebTokenError] ${message}`, {
       statusCode,
       path: req.path,
     });
-  } else if (err.name === "TokenExpiredError") {
+  } else if (err.name === 'TokenExpiredError') {
     statusCode = 401;
-    errorName = "AuthenticationError";
-    message = "Token has expired";
+    errorName = 'AuthenticationError';
+    message = 'Token has expired';
 
     console.info(`[TokenExpiredError] ${message}`, {
       statusCode,
@@ -256,32 +256,32 @@ export const errorHandler = (
     });
   }
   // Handle SyntaxError (malformed JSON)
-  else if (err instanceof SyntaxError && "body" in err) {
+  else if (err instanceof SyntaxError && 'body' in err) {
     statusCode = 400;
-    errorName = "ValidationError";
-    message = "Invalid JSON format in request body";
+    errorName = 'ValidationError';
+    message = 'Invalid JSON format in request body';
 
     console.info(`[SyntaxError] ${message}`, { statusCode, path: req.path });
   }
   // Handle all other unexpected errors
   else {
     // Log unexpected errors with full stack trace
-    console.error("[UnexpectedError] Unhandled error occurred:", {
+    console.error('[UnexpectedError] Unhandled error occurred:', {
       message: err.message,
       stack: err.stack,
       statusCode,
       path: req.path,
       method: req.method,
       ip: req.ip,
-      userAgent: req.get("User-Agent"),
+      userAgent: req.get('User-Agent'),
       body: req.body,
     });
 
     // Don't expose internal error details in production
-    if (process.env.NODE_ENV === "production") {
-      message = "An unexpected error occurred";
+    if (process.env.NODE_ENV === 'production') {
+      message = 'An unexpected error occurred';
     } else {
-      message = err.message || "An unexpected error occurred";
+      message = err.message || 'An unexpected error occurred';
       details = {
         stack: err.stack,
       };
@@ -303,18 +303,18 @@ export const errorHandler = (
   }
 
   // Add request ID if available (useful for tracing)
-  if (req.headers["x-request-id"]) {
-    errorResponse.requestId = req.headers["x-request-id"] as string;
+  if (req.headers['x-request-id']) {
+    errorResponse.requestId = req.headers['x-request-id'] as string;
   }
 
   // Add stack trace in development
-  if (process.env.NODE_ENV === "development" && err.stack) {
+  if (process.env.NODE_ENV === 'development' && err.stack) {
     errorResponse.stack = err.stack;
   }
 
   // Add retry-after header for rate limit errors
   if (err instanceof RateLimitError && err.retryAfter) {
-    res.set("Retry-After", err.retryAfter.toString());
+    res.set('Retry-After', err.retryAfter.toString());
   }
 
   // Send error response
@@ -322,7 +322,7 @@ export const errorHandler = (
 };
 
 /**
- * 404 handler for routes that don't exist
+ * 404 handler for routes that don't exist.
  * Should be placed after all route definitions
  */
 export const notFound = (
@@ -332,11 +332,11 @@ export const notFound = (
 ): void => {
   const error = new NotFoundError(`Cannot ${req.method} ${req.originalUrl}`, {
     availableEndpoints: [
-      "GET /health",
-      "POST /api/auth/register",
-      "POST /api/auth/login",
-      "GET /api/auth/profile",
-      "POST /api/code-review/analyze",
+      'GET /health',
+      'POST /api/auth/register',
+      'POST /api/auth/login',
+      'GET /api/auth/profile',
+      'POST /api/code-review/analyze',
     ],
   });
 
