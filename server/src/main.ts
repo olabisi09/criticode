@@ -51,55 +51,63 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Start server
-let server: any;
+app.listen(PORT, () => {
+  console.log(`🚀 Code Review Backend Server running on port ${PORT}`);
+  console.log(`📊 Health check available at http://localhost:${PORT}/health`);
+  console.log(`🔗 API base URL: http://localhost:${PORT}/api`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔒 CORS origins: ${allowedOrigins.join(', ')}`);
+});
 
-if (require.main === module) {
-  server = app.listen(PORT, () => {
-    console.log(`🚀 Code Review Backend Server running on port ${PORT}`);
-    console.log(`📊 Health check available at http://localhost:${PORT}/health`);
-    console.log(`🔗 API base URL: http://localhost:${PORT}/api`);
-    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-    console.log(`🔒 CORS origins: ${allowedOrigins.join(', ')}`);
-  });
+// let server: any;
 
-  // Graceful shutdown handlers
-  const gracefulShutdown = (signal: string) => {
-    console.log(`\n📡 Received ${signal}. Starting graceful shutdown...`);
+// if (require.main === module) {
+//   server = app.listen(PORT, () => {
+//     console.log(`🚀 Code Review Backend Server running on port ${PORT}`);
+//     console.log(`📊 Health check available at http://localhost:${PORT}/health`);
+//     console.log(`🔗 API base URL: http://localhost:${PORT}/api`);
+//     console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+//     console.log(`🔒 CORS origins: ${allowedOrigins.join(', ')}`);
+//   });
 
-    if (server) {
-      server.close(() => {
-        console.log('✅ HTTP server closed.');
-        console.log('👋 Graceful shutdown completed.');
-        process.exit(0);
-      });
+//   // Graceful shutdown handlers
+//   const gracefulShutdown = (signal: string) => {
+//     console.log(`\n📡 Received ${signal}. Starting graceful shutdown...`);
 
-      // Force close after 10 seconds
-      setTimeout(() => {
-        console.error(
-          '❌ Could not close connections in time, forcefully shutting down'
-        );
-        process.exit(1);
-      }, 10000);
-    } else {
-      process.exit(0);
-    }
-  };
+//     if (server) {
+//       server.close(() => {
+//         console.log('✅ HTTP server closed.');
+//         console.log('👋 Graceful shutdown completed.');
+//         process.exit(0);
+//       });
 
-  // Listen for shutdown signals
-  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+//       // Force close after 10 seconds
+//       setTimeout(() => {
+//         console.error(
+//           '❌ Could not close connections in time, forcefully shutting down'
+//         );
+//         process.exit(1);
+//       }, 10000);
+//     } else {
+//       process.exit(0);
+//     }
+//   };
 
-  // Handle uncaught exceptions
-  process.on('uncaughtException', (error: Error) => {
-    console.error('❌ Uncaught Exception:', error);
-    gracefulShutdown('uncaughtException');
-  });
+//   // Listen for shutdown signals
+//   process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+//   process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
-  // Handle unhandled promise rejections
-  process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
-    console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
-    gracefulShutdown('unhandledRejection');
-  });
-}
+//   // Handle uncaught exceptions
+//   process.on('uncaughtException', (error: Error) => {
+//     console.error('❌ Uncaught Exception:', error);
+//     gracefulShutdown('uncaughtException');
+//   });
+
+//   // Handle unhandled promise rejections
+//   process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
+//     console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+//     gracefulShutdown('unhandledRejection');
+//   });
+// }
 
 export default app;
