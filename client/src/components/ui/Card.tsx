@@ -1,5 +1,3 @@
-import React from "react";
-
 interface CardProps {
   children: React.ReactNode;
   title?: string;
@@ -9,7 +7,7 @@ interface CardProps {
 export const Card: React.FC<CardProps> = ({
   children,
   title,
-  className = "",
+  className = '',
 }) => {
   return (
     <div
@@ -18,7 +16,7 @@ export const Card: React.FC<CardProps> = ({
         ${className}
       `
         .trim()
-        .replace(/\s+/g, " ")}
+        .replace(/\s+/g, ' ')}
     >
       {title && (
         <div className="px-6 py-4 border-b border-border">
@@ -26,9 +24,7 @@ export const Card: React.FC<CardProps> = ({
         </div>
       )}
 
-      <div className={title ? "p-6" : "p-6"}>{children}</div>
+      <div className={title ? 'p-6' : 'p-6'}>{children}</div>
     </div>
   );
 };
-
-export default Card;

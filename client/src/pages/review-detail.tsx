@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { formatDistanceToNow, format } from "date-fns";
-import { toast } from "sonner";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { formatDistanceToNow, format } from 'date-fns';
+import { toast } from 'sonner';
 import {
   ArrowLeft,
   Calendar,
@@ -13,31 +13,31 @@ import {
   Zap,
   CheckCircle,
   RefreshCw,
-} from "lucide-react";
-import { Card } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
-import { Badge } from "../components/ui/Badge";
-import { Modal } from "../components/ui/Modal";
+} from 'lucide-react';
+import { Card } from '../components/ui/Card';
+import { Button } from '../components/ui/Button';
+import { Badge } from '../components/ui/Badge';
+import { Modal } from '../components/ui/Modal';
 
-import { CodeEditor } from "../components/code-editor/CodeEditor";
-import { AnalysisResults } from "../components/review-results/AnalysisResults";
+import { CodeEditor } from '../components/code-editor/code-editor';
+import { AnalysisResults } from '../components/review-results/analysis-results';
 
-import { useReview, useDeleteReview } from "../hooks/useReviews";
+import { useReview, useDeleteReview } from '../hooks/useReviews';
 
 // Language icon mapping
 const languageIcons = {
-  javascript: "🟨",
-  python: "🐍",
-  typescript: "🔷",
-  java: "☕",
-  "c++": "⚡",
-  "c#": "🔷",
-  go: "🐹",
-  rust: "🦀",
-  php: "🐘",
-  ruby: "💎",
-  swift: "🍃",
-  kotlin: "🎯",
+  javascript: '🟨',
+  python: '🐍',
+  typescript: '🔷',
+  java: '☕',
+  'c++': '⚡',
+  'c#': '🔷',
+  go: '🐹',
+  rust: '🦀',
+  php: '🐘',
+  ruby: '💎',
+  swift: '🍃',
+  kotlin: '🎯',
 };
 
 // Loading component
@@ -88,12 +88,12 @@ const ErrorState: React.FC<{
       <div className="max-w-md mx-auto">
         <AlertCircle className="h-16 w-16 text-red-300 mx-auto mb-4" />
         <h3 className="text-lg font-medium text-gray-900 mb-2">
-          {message.includes("404") || message.includes("not found")
-            ? "Review not found"
-            : "Failed to load review"}
+          {message.includes('404') || message.includes('not found')
+            ? 'Review not found'
+            : 'Failed to load review'}
         </h3>
         <p className="text-gray-500 mb-6">
-          {message.includes("404") || message.includes("not found")
+          {message.includes('404') || message.includes('not found')
             ? "The review you're looking for doesn't exist or may have been deleted."
             : message}
         </p>
@@ -106,7 +106,7 @@ const ErrorState: React.FC<{
             <ArrowLeft className="h-4 w-4" />
             Back to History
           </Button>
-          {!message.includes("404") && !message.includes("not found") && (
+          {!message.includes('404') && !message.includes('not found') && (
             <Button onClick={onRetry} className="flex items-center gap-2">
               <RefreshCw className="h-4 w-4" />
               Try Again
@@ -131,12 +131,12 @@ const ReviewDetail: React.FC = () => {
   // Redirect to history if no ID provided
   useEffect(() => {
     if (!id) {
-      navigate("/history");
+      navigate('/history');
     }
   }, [id, navigate]);
 
   const handleGoBack = () => {
-    navigate("/history");
+    navigate('/history');
   };
 
   const handleDelete = async () => {
@@ -144,11 +144,11 @@ const ReviewDetail: React.FC = () => {
 
     try {
       await deleteReviewMutation.mutateAsync(review.id);
-      toast.success("Review deleted successfully");
-      navigate("/history");
+      toast.success('Review deleted successfully');
+      navigate('/history');
     } catch (error) {
       const errorMessage =
-        error instanceof Error ? error.message : "Failed to delete review";
+        error instanceof Error ? error.message : 'Failed to delete review';
       toast.error(errorMessage);
       setShowDeleteModal(false);
     }
@@ -167,7 +167,7 @@ const ReviewDetail: React.FC = () => {
   // Error state
   if (error) {
     const errorMessage =
-      error instanceof Error ? error.message : "Something went wrong";
+      error instanceof Error ? error.message : 'Something went wrong';
     return (
       <ErrorState
         message={errorMessage}
@@ -189,7 +189,7 @@ const ReviewDetail: React.FC = () => {
   }
 
   const languageIcon =
-    languageIcons[review.language as keyof typeof languageIcons] || "📄";
+    languageIcons[review.language as keyof typeof languageIcons] || '📄';
   const totalIssues =
     review.analysisResult.summary.securityIssues +
     review.analysisResult.summary.performanceIssues +
@@ -354,14 +354,14 @@ const ReviewDetail: React.FC = () => {
               </p>
               <div className="text-sm text-gray-600 space-y-1">
                 <p>
-                  <strong>File:</strong> {review.fileName || "Code Snippet"}
+                  <strong>File:</strong> {review.fileName || 'Code Snippet'}
                 </p>
                 <p>
                   <strong>Language:</strong> {review.language}
                 </p>
                 <p>
-                  <strong>Date:</strong>{" "}
-                  {format(new Date(review.createdAt), "PPP")}
+                  <strong>Date:</strong>{' '}
+                  {format(new Date(review.createdAt), 'PPP')}
                 </p>
                 <p>
                   <strong>Total Issues:</strong> {totalIssues}

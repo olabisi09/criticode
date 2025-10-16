@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import type { AnalysisResult, ReviewFilters } from "../types";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import type { AnalysisResult, ReviewFilters } from '../types';
 import {
   analyzeCode,
   uploadFile,
@@ -7,17 +7,17 @@ import {
   getReviewById,
   deleteReview,
   getUserStats,
-} from "../services/review";
+} from '../services/review';
 
 // Query keys for consistent caching
 export const reviewKeys = {
-  all: ["reviews"] as const,
-  lists: () => [...reviewKeys.all, "list"] as const,
+  all: ['reviews'] as const,
+  lists: () => [...reviewKeys.all, 'list'] as const,
   list: (page: number, limit: number, filters?: ReviewFilters) =>
     [...reviewKeys.lists(), { page, limit, filters }] as const,
-  details: () => [...reviewKeys.all, "detail"] as const,
+  details: () => [...reviewKeys.all, 'detail'] as const,
   detail: (id: string) => [...reviewKeys.details(), id] as const,
-  stats: () => [...reviewKeys.all, "stats"] as const,
+  stats: () => [...reviewKeys.all, 'stats'] as const,
 };
 
 /**
@@ -45,7 +45,7 @@ export const useAnalyzeCode = () => {
       queryClient.invalidateQueries({ queryKey: reviewKeys.stats() });
     },
     onError: (error) => {
-      console.error("Code analysis failed:", error);
+      console.error('Code analysis failed:', error);
     },
   });
 };
@@ -67,7 +67,7 @@ export const useUploadFile = () => {
       queryClient.invalidateQueries({ queryKey: reviewKeys.stats() });
     },
     onError: (error) => {
-      console.error("File upload failed:", error);
+      console.error('File upload failed:', error);
     },
   });
 };
@@ -79,11 +79,7 @@ export const useUploadFile = () => {
  * @param filters - Optional filters (language, sortBy)
  * @returns useQuery hook with loading, error, and data states
  */
-export const useReviews = (
-  page: number = 1,
-  limit: number = 20,
-  filters?: ReviewFilters
-) => {
+export const useReviews = (page = 1, limit = 20, filters?: ReviewFilters) => {
   return useQuery({
     queryKey: reviewKeys.list(page, limit, filters),
     queryFn: () => getReviews(page, limit, filters),
@@ -129,7 +125,7 @@ export const useDeleteReview = () => {
       queryClient.invalidateQueries({ queryKey: reviewKeys.stats() });
     },
     onError: (error) => {
-      console.error("Review deletion failed:", error);
+      console.error('Review deletion failed:', error);
     },
   });
 };

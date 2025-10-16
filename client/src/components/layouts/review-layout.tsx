@@ -1,12 +1,13 @@
 import { History, Home, Moon } from 'lucide-react';
-import { useTheme } from '../contexts';
-import Button from '@/components/ui/Button';
+import { Button } from '../ui/Button';
+import { useTheme } from '../../contexts';
+import { Outlet } from 'react-router-dom';
 
-const Freestyle = () => {
+const ReviewLayout = () => {
   const { toggleTheme } = useTheme();
   return (
     <div className="flex h-screen w-full">
-      <aside className="h-screen border-r border-black/[7%] w-[20rem]">
+      <aside className="h-screen fixed top-0 left-0 z-50 border-r border-black/[7%] w-[15rem]">
         <h1 className="text-4xl font-bold h-18 border-b border-b-black/[7%]">
           Criticode
         </h1>
@@ -23,16 +24,19 @@ const Freestyle = () => {
           </ul>
         </section>
       </aside>
-      <div className="w-full">
-        <header className="w-full h-18 border-b border-b-black/[7%] px-4 flex justify-between items-center">
+      <div className="w-full pl-[15rem]">
+        <header className="fixed top-0 left-[15rem] z-50 w-[calc(100vw-15rem)] bg-background h-18 border-b border-b-black/[7%] px-4 flex justify-between items-center">
           <h3>Analyze Code</h3>
-          <Button onClick={toggleTheme} className="border-border">
+          <Button onClick={toggleTheme} className="border-border bg-black">
             <Moon />
           </Button>
         </header>
+        <div className="p-4 mt-18">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
 };
 
-export default Freestyle;
+export default ReviewLayout;

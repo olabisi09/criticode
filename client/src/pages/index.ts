@@ -1,10 +1,10 @@
 import { lazy } from 'react';
 
-// Lazy load all pages for code splitting
-export const Home = lazy(() => import('./Home'));
-export const History = lazy(() => import('./History'));
-export const Login = lazy(() => import('./Login'));
-export const Profile = lazy(() => import('./Profile'));
-export const NotFound = lazy(() => import('./NotFound'));
-export const ReviewDetail = lazy(() => import('./ReviewDetail'));
-export const Freestyle = lazy(() => import('./Freestyle'));
+export const Home = lazy(() => import('./home'));
+export const History = lazy(() => import('./history'));
+export const Login = lazy(() => import('./login'));
+export const Register = lazy(() => import('./register'));
+export const Profile = lazy(() => import('./profile'));
+export const NotFound = lazy(() => import('./not-found'));
+export const ReviewDetail = lazy(() => import('./review-detail'));
+export const Freestyle = lazy(() => import('./freestyle'));

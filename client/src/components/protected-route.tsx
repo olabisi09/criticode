@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { Loader2 } from "lucide-react";
-import { useAuthStore } from "../store/authStore";
-
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
+import React, { useEffect, useState } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
+import { useAuthStore } from '../store/authStore';
 
 // Loading component
 const AuthLoadingSpinner: React.FC = () => (
@@ -17,7 +13,7 @@ const AuthLoadingSpinner: React.FC = () => (
   </div>
 );
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+export const ProtectedRoute: React.FC = () => {
   const location = useLocation();
   const { isAuthenticated, isLoading, checkAuth } = useAuthStore();
   const [isInitialized, setIsInitialized] = useState(false);
@@ -28,7 +24,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         // Check authentication status on mount
         await checkAuth();
       } catch (error) {
-        console.error("Auth check failed:", error);
+        console.error('Auth check failed:', error);
       } finally {
         setIsInitialized(true);
       }
@@ -47,8 +43,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const intendedPath = location.pathname + location.search;
 
     // Don't store login/register paths as intended destinations
-    if (intendedPath !== "/login" && intendedPath !== "/register") {
-      localStorage.setItem("intendedDestination", intendedPath);
+    if (intendedPath !== '/login' && intendedPath !== '/register') {
+      localStorage.setItem('intendedDestination', intendedPath);
     }
   };
 
@@ -64,7 +60,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }
 
   // If authenticated, render the protected content
-  return <>{children}</>;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

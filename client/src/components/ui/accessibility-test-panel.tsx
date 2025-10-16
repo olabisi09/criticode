@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "./Button";
+import { useState } from 'react';
+import { Button } from './Button';
 
 interface A11yTestResultProps {
   passed: boolean;
@@ -14,13 +14,13 @@ const A11yTestResult: React.FC<A11yTestResultProps> = ({
 }) => (
   <div
     className={`p-3 border rounded-lg ${
-      passed ? "border-green-300 bg-green-50" : "border-red-300 bg-red-50"
+      passed ? 'border-green-300 bg-green-50' : 'border-red-300 bg-red-50'
     }`}
   >
     <div className="flex items-center gap-2 mb-2">
       <div
         className={`w-4 h-4 rounded-full ${
-          passed ? "bg-green-500" : "bg-red-500"
+          passed ? 'bg-green-500' : 'bg-red-500'
         }`}
         aria-hidden="true"
       />
@@ -31,64 +31,64 @@ const A11yTestResult: React.FC<A11yTestResultProps> = ({
 );
 
 export const AccessibilityTestPanel: React.FC = () => {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Only show in development
-  if (import.meta.env.MODE !== "development") {
+  if (import.meta.env.MODE !== 'development') {
     return null;
   }
 
   const tests = [
     {
-      test: "Skip to Content Link",
+      test: 'Skip to Content Link',
       passed: !!document.querySelector('a[href="#main-content"]'),
       description:
-        "Skip navigation link allows keyboard users to jump to main content",
+        'Skip navigation link allows keyboard users to jump to main content',
     },
     {
-      test: "Main Landmark",
-      passed: !!document.querySelector("main"),
-      description: "Page has a main landmark for screen readers",
+      test: 'Main Landmark',
+      passed: !!document.querySelector('main'),
+      description: 'Page has a main landmark for screen readers',
     },
     {
-      test: "Headings Structure",
-      passed: document.querySelectorAll("h1").length === 1,
-      description: "Page has exactly one h1 heading",
+      test: 'Headings Structure',
+      passed: document.querySelectorAll('h1').length === 1,
+      description: 'Page has exactly one h1 heading',
     },
     {
-      test: "Form Labels",
-      passed: Array.from(document.querySelectorAll("input")).every(
+      test: 'Form Labels',
+      passed: Array.from(document.querySelectorAll('input')).every(
         (input) =>
-          input.getAttribute("aria-label") ||
+          input.getAttribute('aria-label') ||
           document.querySelector(`label[for="${input.id}"]`) ||
-          input.closest("label")
+          input.closest('label')
       ),
-      description: "All form inputs have associated labels",
+      description: 'All form inputs have associated labels',
     },
     {
-      test: "Button Accessibility",
-      passed: Array.from(document.querySelectorAll("button")).every(
+      test: 'Button Accessibility',
+      passed: Array.from(document.querySelectorAll('button')).every(
         (button) =>
           button.textContent?.trim() ||
-          button.getAttribute("aria-label") ||
-          button.getAttribute("title")
+          button.getAttribute('aria-label') ||
+          button.getAttribute('title')
       ),
-      description: "All buttons have accessible names",
+      description: 'All buttons have accessible names',
     },
     {
-      test: "Focus Indicators",
+      test: 'Focus Indicators',
       passed: true, // Assuming CSS focus styles are properly implemented
-      description: "Visible focus indicators on interactive elements",
+      description: 'Visible focus indicators on interactive elements',
     },
     {
-      test: "Color Contrast",
+      test: 'Color Contrast',
       passed: true, // This would need more complex testing
-      description: "Text meets WCAG AA color contrast requirements (4.5:1)",
+      description: 'Text meets WCAG AA color contrast requirements (4.5:1)',
     },
     {
-      test: "Touch Targets",
+      test: 'Touch Targets',
       passed: true, // Assuming min-height is properly set
-      description: "Interactive elements meet minimum 44px touch target size",
+      description: 'Interactive elements meet minimum 44px touch target size',
     },
   ];
 
@@ -127,10 +127,10 @@ export const AccessibilityTestPanel: React.FC = () => {
             <div
               className={`text-2xl font-bold ${
                 score >= 80
-                  ? "text-green-600"
+                  ? 'text-green-600'
                   : score >= 60
-                  ? "text-yellow-600"
-                  : "text-red-600"
+                  ? 'text-yellow-600'
+                  : 'text-red-600'
               }`}
             >
               {score}%
@@ -170,5 +170,3 @@ export const AccessibilityTestPanel: React.FC = () => {
     </div>
   );
 };
-
-export default AccessibilityTestPanel;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   title,
   children,
-  className = "",
+  className = '',
   initialFocus,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -23,13 +23,13 @@ export const Modal: React.FC<ModalProps> = ({
   // Handle focus management and keyboard interactions
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onClose();
       }
     };
 
     const trapFocus = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") return;
+      if (event.key !== 'Tab') return;
 
       const modal = modalRef.current;
       if (!modal) return;
@@ -59,11 +59,11 @@ export const Modal: React.FC<ModalProps> = ({
       // Store the previously focused element
       previousActiveElement.current = document.activeElement as HTMLElement;
 
-      document.addEventListener("keydown", handleEscape);
-      document.addEventListener("keydown", trapFocus);
+      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('keydown', trapFocus);
 
       // Prevent body scroll when modal is open
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
 
       // Focus management
       setTimeout(() => {
@@ -82,9 +82,9 @@ export const Modal: React.FC<ModalProps> = ({
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.removeEventListener("keydown", trapFocus);
-      document.body.style.overflow = "unset";
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', trapFocus);
+      document.body.style.overflow = 'unset';
 
       // Restore focus to previous element
       if (previousActiveElement.current) {
@@ -115,10 +115,10 @@ export const Modal: React.FC<ModalProps> = ({
           ${className}
         `
           .trim()
-          .replace(/\s+/g, " ")}
+          .replace(/\s+/g, ' ')}
         role="dialog"
         aria-modal="true"
-        aria-labelledby={title ? "modal-title" : undefined}
+        aria-labelledby={title ? 'modal-title' : undefined}
         aria-describedby="modal-content"
       >
         {/* Header */}
@@ -161,5 +161,3 @@ export const Modal: React.FC<ModalProps> = ({
     </div>
   );
 };
-
-export default Modal;

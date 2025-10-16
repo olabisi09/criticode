@@ -1,5 +1,3 @@
-import React from "react";
-
 interface SkeletonProps {
   className?: string;
   width?: string | number;
@@ -10,26 +8,26 @@ interface SkeletonProps {
 
 // Base Skeleton component
 export const Skeleton: React.FC<SkeletonProps> = ({
-  className = "",
+  className = '',
   width,
   height,
   rounded = true,
   circle = false,
 }) => {
   const styles: React.CSSProperties = {
-    width: width || "100%",
-    height: height || "1rem",
+    width: width || '100%',
+    height: height || '1rem',
   };
 
   return (
     <div
       className={`
         animate-pulse bg-muted
-        ${circle ? "rounded-full aspect-square" : rounded ? "rounded" : ""}
+        ${circle ? 'rounded-full aspect-square' : rounded ? 'rounded' : ''}
         ${className}
       `
         .trim()
-        .replace(/\s+/g, " ")}
+        .replace(/\s+/g, ' ')}
       style={styles}
     />
   );
@@ -45,9 +43,9 @@ interface TextSkeletonProps {
 
 export const TextSkeleton: React.FC<TextSkeletonProps> = ({
   lines = 1,
-  className = "",
-  lineHeight = "1rem",
-  lastLineWidth = "75%",
+  className = '',
+  lineHeight = '1rem',
+  lastLineWidth = '75%',
 }) => {
   return (
     <div className={`space-y-2 ${className}`}>
@@ -55,7 +53,7 @@ export const TextSkeleton: React.FC<TextSkeletonProps> = ({
         <Skeleton
           key={index}
           height={lineHeight}
-          width={index === lines - 1 && lines > 1 ? lastLineWidth : "100%"}
+          width={index === lines - 1 && lines > 1 ? lastLineWidth : '100%'}
         />
       ))}
     </div>
@@ -222,7 +220,7 @@ export const ListSkeleton: React.FC<ListSkeletonProps> = ({
   items = 3,
   showAvatar = false,
   showActions = true,
-  className = "",
+  className = '',
 }) => {
   return (
     <div className={`space-y-3 ${className}`}>
@@ -262,7 +260,7 @@ export const TableSkeleton: React.FC<TableSkeletonProps> = ({
   rows = 5,
   columns = 4,
   showHeader = true,
-  className = "",
+  className = '',
 }) => {
   return (
     <div
@@ -294,7 +292,7 @@ export const TableSkeleton: React.FC<TableSkeletonProps> = ({
               <Skeleton
                 key={colIndex}
                 height="1rem"
-                width={colIndex === 0 ? "90%" : "70%"}
+                width={colIndex === 0 ? '90%' : '70%'}
               />
             ))}
           </div>
@@ -359,5 +357,3 @@ export const PageSkeleton: React.FC = () => {
     </div>
   );
 };
-
-export default Skeleton;

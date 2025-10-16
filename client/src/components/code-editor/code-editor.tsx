@@ -4,9 +4,9 @@ import React, {
   useCallback,
   useMemo,
   Suspense,
-} from "react";
-import { useTheme } from "../../hooks/useTheme";
-import { EditorLoading, MemoizedMonacoEditor } from "./LazyMonacoEditor";
+} from 'react';
+import { useTheme } from '../../hooks/useTheme';
+import { EditorLoading, MemoizedMonacoEditor } from './lazy-monaco-editor';
 
 interface CodeEditorProps {
   code: string;
@@ -17,28 +17,28 @@ interface CodeEditorProps {
 
 // Supported languages with display names
 const supportedLanguages = [
-  { value: "javascript", label: "JavaScript" },
-  { value: "typescript", label: "TypeScript" },
-  { value: "python", label: "Python" },
-  { value: "java", label: "Java" },
-  { value: "cpp", label: "C++" },
-  { value: "go", label: "Go" },
-  { value: "ruby", label: "Ruby" },
-  { value: "php", label: "PHP" },
+  { value: 'javascript', label: 'JavaScript' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'python', label: 'Python' },
+  { value: 'java', label: 'Java' },
+  { value: 'cpp', label: 'C++' },
+  { value: 'go', label: 'Go' },
+  { value: 'ruby', label: 'Ruby' },
+  { value: 'php', label: 'PHP' },
 ];
 
 // Memoized CodeEditor component for performance
 export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
   ({ code, language, onChange, readOnly = false }) => {
     const { theme: appTheme } = useTheme();
-    const [monacoTheme, setMonacoTheme] = useState<"vs-dark" | "light">(
-      "vs-dark"
+    const [monacoTheme, setMonacoTheme] = useState<'vs-dark' | 'light'>(
+      'vs-dark'
     );
     const [selectedLanguage, setSelectedLanguage] = useState(language);
 
     // Update Monaco theme when app theme changes
     useEffect(() => {
-      setMonacoTheme(appTheme === "dark" ? "vs-dark" : "light");
+      setMonacoTheme(appTheme === 'dark' ? 'vs-dark' : 'light');
     }, [appTheme]);
 
     // Update language when prop changes
@@ -66,15 +66,15 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
       () => ({
         minimap: { enabled: false },
         fontSize: window.innerWidth < 640 ? 12 : 14,
-        lineNumbers: "on" as const,
+        lineNumbers: 'on' as const,
         scrollBeyondLastLine: false,
         readOnly,
         automaticLayout: true,
-        wordWrap: "on" as const,
+        wordWrap: 'on' as const,
         tabSize: 2,
         insertSpaces: true,
         folding: true,
-        showFoldingControls: "always" as const,
+        showFoldingControls: 'always' as const,
         bracketPairColorization: {
           enabled: true,
         },
@@ -85,10 +85,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
 
     // Memoized editor height
     const editorHeight = useMemo(() => {
-      if (window.innerWidth < 640) return "350px";
-      if (window.innerWidth < 768) return "400px";
-      if (window.innerWidth < 1024) return "450px";
-      return "500px";
+      if (window.innerWidth < 640) return '350px';
+      if (window.innerWidth < 768) return '400px';
+      if (window.innerWidth < 1024) return '450px';
+      return '500px';
     }, []);
 
     return (
@@ -127,7 +127,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
           <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
             <span className="text-sm font-medium text-foreground">Theme:</span>
             <span className="px-3 py-2 text-sm border border-input rounded-md bg-muted text-muted-foreground self-start sm:self-auto">
-              {monacoTheme === "vs-dark" ? "Dark" : "Light"}
+              {monacoTheme === 'vs-dark' ? 'Dark' : 'Light'}
             </span>
           </div>
         </div>
@@ -149,7 +149,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
         {/* Editor Info */}
         <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
           <div>
-            Lines: {code.split("\n").length} | Characters: {code.length}
+            Lines: {code.split('\n').length} | Characters: {code.length}
           </div>
           {readOnly && (
             <div className="flex items-center space-x-1">
@@ -163,6 +163,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
   }
 );
 
-CodeEditor.displayName = "CodeEditor";
+CodeEditor.displayName = 'CodeEditor';
 
 export default CodeEditor;

@@ -8,11 +8,14 @@ import {
   NotFound,
   ReviewDetail,
   Freestyle,
+  Register,
 } from './pages';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import { ProtectedRoute } from './components/protected-route';
 import { useTheme } from './hooks/useTheme';
-import { Spinner } from './components/ui/Spinner';
-import { AccessibilityTestPanel } from './components/ui/AccessibilityTestPanel';
+import { Spinner } from './components/ui/spinner';
+import { AccessibilityTestPanel } from './components/ui/accessibility-test-panel';
+import ReviewLayout from './components/layouts/review-layout';
+import AuthLayout from './components/layouts/auth-layout';
 
 function App() {
   const { theme } = useTheme();
@@ -50,33 +53,19 @@ function App() {
         >
           <main id="main-content" role="main">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route element={<ReviewLayout />}>
+                <Route path="/" element={<Home />} />
+              </Route>
               <Route path="/freestyle" element={<Freestyle />} />
-              <Route
-                path="/history"
-                element={
-                  <ProtectedRoute>
-                    <History />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/history/:id"
-                element={
-                  <ProtectedRoute>
-                    <ReviewDetail />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/history" element={<History />} />
+                <Route path="/history/:id" element={<ReviewDetail />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+              <Route element={<AuthLayout />}>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

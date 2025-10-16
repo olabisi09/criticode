@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
 
 interface OptimizedImageProps {
   src: string;
@@ -6,7 +6,7 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   className?: string;
-  loading?: "lazy" | "eager";
+  loading?: 'lazy' | 'eager';
   placeholder?: string;
   webpSrc?: string; // WebP version for browsers that support it
 }
@@ -17,8 +17,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = React.memo(
     alt,
     width,
     height,
-    className = "",
-    loading = "lazy",
+    className = '',
+    loading = 'lazy',
     placeholder,
     webpSrc,
   }) => {
@@ -36,10 +36,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = React.memo(
 
     // Check if browser supports WebP
     const supportsWebP = () => {
-      const canvas = document.createElement("canvas");
+      const canvas = document.createElement('canvas');
       canvas.width = 1;
       canvas.height = 1;
-      return canvas.toDataURL("image/webp").startsWith("data:image/webp");
+      return canvas.toDataURL('image/webp').startsWith('data:image/webp');
     };
 
     const imageSrc = webpSrc && supportsWebP() ? webpSrc : src;
@@ -67,8 +67,8 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = React.memo(
           onError={handleError}
           className={`
           transition-opacity duration-300
-          ${imageLoaded ? "opacity-100" : "opacity-0"}
-          ${imageError ? "hidden" : ""}
+          ${imageLoaded ? 'opacity-100' : 'opacity-0'}
+          ${imageError ? 'hidden' : ''}
           ${className}
         `}
           // Add responsive attributes
@@ -79,7 +79,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = React.memo(
         {imageError && (
           <div
             className="flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-500"
-            style={{ width: width || "100%", height: height || "auto" }}
+            style={{ width: width || '100%', height: height || 'auto' }}
           >
             <span className="text-sm">Failed to load image</span>
           </div>
@@ -88,7 +88,3 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = React.memo(
     );
   }
 );
-
-OptimizedImage.displayName = "OptimizedImage";
-
-export default OptimizedImage;

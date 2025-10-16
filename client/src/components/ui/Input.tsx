@@ -1,5 +1,7 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import React from 'react';
+import { useFormContext } from 'react-hook-form';
+import { usePasswordToggle } from '../../hooks/usePasswordToggle';
+import { Eye, EyeOff } from 'lucide-react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -19,9 +21,10 @@ export const Input: React.FC<InputProps> = ({
     register,
     formState: { errors },
   } = useFormContext();
+  const { togglePassword, showPassword } = usePasswordToggle();
   const fieldError = errors[name];
   const hasError = Boolean(fieldError?.message);
-  const inputId = id || label?.toLowerCase().replace(/\s+/g, "-");
+  const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
   const errorId = `${inputId}-error`;
 
   return (
@@ -35,33 +38,47 @@ export const Input: React.FC<InputProps> = ({
         </label>
       )}
 
-      <input
-        id={inputId}
-        disabled={disabled}
-        className={`
-          w-full px-3 py-2 border rounded-lg shadow-sm min-h-[44px]
+      <div className="relative">
+        <input
+          id={inputId}
+          disabled={disabled}
+          className={`
+          w-full px-3 py-2 border rounded-lg shadow-sm
           placeholder:text-muted-foreground 
           bg-background text-foreground
-          focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring
+          focus:outline-none  focus:ring-2 focus:ring-ring
           transition-colors duration-200
           ${
             error
-              ? "border-destructive focus:ring-destructive focus:border-destructive"
-              : "border-input"
+              ? 'border-2 border-destructive focus:ring-destructive focus:border-destructive'
+              : 'border-input'
           }
-          ${
-            disabled
-              ? "bg-muted cursor-not-allowed opacity-50"
-              : "hover:border-accent-foreground"
-          }
+          ${disabled ? 'bg-muted cursor-not-allowed opacity-50' : ''}
         `
-          .trim()
-          .replace(/\s+/g, " ")}
-        aria-invalid={!!error}
-        aria-describedby={fieldError ? errorId : undefined}
-        {...rest}
-        {...register(name)}
-      />
+            .trim()
+            .replace(/\s+/g, ' ')}
+          aria-invalid={!!error}
+          aria-describedby={fieldError ? errorId : undefined}
+          {...rest}
+          {...register(name)}
+          type={rest.type === 'password' && showPassword ? 'text' : rest.type}
+        />
+        {rest.type === 'password' && (
+          <>
+            {showPassword ? (
+              <EyeOff
+                className="w-4 h-4 absolute right-3 bottom-3"
+                onClick={togglePassword}
+              />
+            ) : (
+              <Eye
+                className="w-4 h-4 absolute right-3 bottom-3"
+                onClick={togglePassword}
+              />
+            )}
+          </>
+        )}
+      </div>
 
       {hasError && (
         <p
@@ -76,5 +93,3 @@ export const Input: React.FC<InputProps> = ({
     </div>
   );
 };
-
-export default Input;

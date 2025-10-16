@@ -1,12 +1,12 @@
-import React from "react";
-import { Button } from "../components/ui/Button";
+import { useState } from 'react';
+import { Button } from '../components/ui/Button';
 
 // Test component that throws an error when clicked (only shown in development)
 export const ErrorTestComponent: React.FC = () => {
-  const [shouldError, setShouldError] = React.useState(false);
+  const [shouldError, setShouldError] = useState(false);
 
   if (shouldError) {
-    throw new Error("This is a test error thrown by the ErrorTestComponent");
+    throw new Error('This is a test error thrown by the ErrorTestComponent');
   }
 
   // Only render in development mode

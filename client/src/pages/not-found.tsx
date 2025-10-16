@@ -1,13 +1,12 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Home, FileQuestion, ArrowLeft, Code } from "lucide-react";
-import { Button } from "../components/ui/Button";
+import { useNavigate } from 'react-router-dom';
+import { Home, FileQuestion, ArrowLeft, Code } from 'lucide-react';
+import { Button } from '../components/ui/Button';
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate("/");
+    navigate('/');
   };
 
   const handleGoBack = () => {
@@ -94,19 +93,19 @@ const NotFound: React.FC = () => {
           <p className="text-gray-500 mb-4">Or explore these sections:</p>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <button
-              onClick={() => navigate("/")}
+              onClick={() => navigate('/')}
               className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
             >
               Code Analysis
             </button>
             <button
-              onClick={() => navigate("/history")}
+              onClick={() => navigate('/history')}
               className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
             >
               Review History
             </button>
             <button
-              onClick={() => navigate("/profile")}
+              onClick={() => navigate('/profile')}
               className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
             >
               Profile

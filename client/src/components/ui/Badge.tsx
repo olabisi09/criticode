@@ -1,22 +1,20 @@
-import React from "react";
-
 interface BadgeProps {
-  variant?: "success" | "warning" | "error" | "info";
+  variant?: 'success' | 'warning' | 'error' | 'info';
   children: React.ReactNode;
   className?: string;
 }
 
 const variantClasses = {
-  success: "bg-green-100 text-green-800 border-green-200",
-  warning: "bg-yellow-100 text-yellow-800 border-yellow-200",
-  error: "bg-red-100 text-red-800 border-red-200",
-  info: "bg-blue-100 text-blue-800 border-blue-200",
+  success: 'bg-green-100 text-green-800 border-green-200',
+  warning: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+  error: 'bg-red-100 text-red-800 border-red-200',
+  info: 'bg-blue-100 text-blue-800 border-blue-200',
 };
 
 export const Badge: React.FC<BadgeProps> = ({
-  variant = "info",
+  variant = 'info',
   children,
-  className = "",
+  className = '',
 }) => {
   return (
     <span
@@ -27,11 +25,9 @@ export const Badge: React.FC<BadgeProps> = ({
         ${className}
       `
         .trim()
-        .replace(/\s+/g, " ")}
+        .replace(/\s+/g, ' ')}
     >
       {children}
     </span>
   );
 };
-
-export default Badge;

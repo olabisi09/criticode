@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useCallback,
   useMemo,
-} from "react";
+} from 'react';
 import {
   AlertCircle,
   RotateCcw,
@@ -12,35 +12,34 @@ import {
   Save,
   Eye,
   EyeOff,
-} from "lucide-react";
-import { toast } from "sonner";
-import { CodeEditor } from "../components/code-editor/CodeEditor";
-import { FileUpload } from "../components/code-editor/FileUpload";
-import { AnalysisResults } from "../components/review-results/AnalysisResults";
-import { Button } from "../components/ui/Button";
-import { Card } from "../components/ui/Card";
-import { Navigation } from "../components/ui/Navigation";
-import { useAnalyzeCode, useUploadFile } from "../hooks/useReviews";
-import { useAuthStore } from "../store/authStore";
-import type { AnalysisResult } from "../types";
+} from 'lucide-react';
+import { toast } from 'sonner';
+import { CodeEditor } from '../components/code-editor/code-editor';
+import { FileUpload } from '../components/code-editor/file-upload';
+import { AnalysisResults } from '../components/review-results/analysis-results';
+import { Card } from '../components/ui/Card';
+import { useAnalyzeCode, useUploadFile } from '../hooks/useReviews';
+import { useAuthStore } from '../store/authStore';
+import type { AnalysisResult } from '../types';
+import Button from '@/components/ui/Button';
 
 // Supported languages for the language selector
 const supportedLanguages = [
-  { value: "javascript", label: "JavaScript" },
-  { value: "typescript", label: "TypeScript" },
-  { value: "python", label: "Python" },
-  { value: "java", label: "Java" },
-  { value: "cpp", label: "C++" },
-  { value: "go", label: "Go" },
-  { value: "ruby", label: "Ruby" },
-  { value: "php", label: "PHP" },
+  { value: 'javascript', label: 'JavaScript' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'python', label: 'Python' },
+  { value: 'java', label: 'Java' },
+  { value: 'cpp', label: 'C++' },
+  { value: 'go', label: 'Go' },
+  { value: 'ruby', label: 'Ruby' },
+  { value: 'php', label: 'PHP' },
 ];
 
 // Memoized Home component for better performance
 const Home: React.FC = React.memo(() => {
-  const [code, setCode] = useState("");
-  const [language, setLanguage] = useState("javascript");
-  const [fileName, setFileName] = useState("");
+  const [code, setCode] = useState('');
+  const [language, setLanguage] = useState('javascript');
+  const [fileName, setFileName] = useState('');
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(
     null
   );
@@ -88,7 +87,7 @@ const Home: React.FC = React.memo(() => {
         const errorMessage =
           err instanceof Error
             ? err.message
-            : "Failed to upload and analyze file";
+            : 'Failed to upload and analyze file';
         setError(errorMessage);
       }
     },
@@ -100,8 +99,8 @@ const Home: React.FC = React.memo(() => {
     if (analysisResult && resultsRef.current) {
       setTimeout(() => {
         resultsRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
+          behavior: 'smooth',
+          block: 'start',
         });
       }, 100);
     }
@@ -110,7 +109,7 @@ const Home: React.FC = React.memo(() => {
   const handleAnalyzeCode = async () => {
     // Validate code is not empty
     if (!code.trim()) {
-      setError("Please enter some code to analyze");
+      setError('Please enter some code to analyze');
       return;
     }
 
@@ -123,10 +122,10 @@ const Home: React.FC = React.memo(() => {
         fileName: fileName || undefined,
       });
       setAnalysisResult(result);
-      toast.success("Code analysis completed successfully!");
+      toast.success('Code analysis completed successfully!');
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : "Failed to analyze code";
+        err instanceof Error ? err.message : 'Failed to analyze code';
       setError(errorMessage);
       toast.error(errorMessage);
     }
@@ -140,38 +139,38 @@ const Home: React.FC = React.memo(() => {
 
     // Scroll to results section
     resultsRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
+      behavior: 'smooth',
+      block: 'start',
     });
   };
 
-  const handleExportResults = (format: "json" | "pdf") => {
+  const handleExportResults = (format: 'json' | 'pdf') => {
     if (!analysisResult) return;
 
-    if (format === "json") {
+    if (format === 'json') {
       const dataStr = JSON.stringify(analysisResult, null, 2);
       const dataUri =
-        "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+        'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
       const exportFileDefaultName = `analysis-${
-        fileName || "code"
+        fileName || 'code'
       }-${new Date().getTime()}.json`;
 
-      const linkElement = document.createElement("a");
-      linkElement.setAttribute("href", dataUri);
-      linkElement.setAttribute("download", exportFileDefaultName);
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
       linkElement.click();
 
-      toast.success("Analysis results exported as JSON");
-    } else if (format === "pdf") {
+      toast.success('Analysis results exported as JSON');
+    } else if (format === 'pdf') {
       // For PDF export, we would need a PDF library like jsPDF
       // For now, we'll show a placeholder
-      toast.info("PDF export feature coming soon!");
+      toast.info('PDF export feature coming soon!');
     }
   };
 
   const handleSaveToHistory = async () => {
     if (!isAuthenticated) {
-      toast.error("Please login to save to history");
+      toast.error('Please login to save to history');
       return;
     }
 
@@ -179,9 +178,9 @@ const Home: React.FC = React.memo(() => {
       // Here you would call your save to history API
       // For now, we'll simulate the save
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success("Analysis saved to your history!");
+      toast.success('Analysis saved to your history!');
     } catch {
-      toast.error("Failed to save to history");
+      toast.error('Failed to save to history');
     }
   };
 
@@ -191,13 +190,13 @@ const Home: React.FC = React.memo(() => {
 
   const handleAnalyzeAnother = () => {
     setAnalysisResult(null);
-    setCode("");
-    setFileName("");
+    setCode('');
+    setFileName('');
     setError(null);
   };
 
   const getCharacterCount = () => code.length;
-  const getLineCount = () => code.split("\n").length;
+  const getLineCount = () => code.split('\n').length;
 
   // If we have analysis results, show them
   if (analysisResult) {
@@ -229,7 +228,7 @@ const Home: React.FC = React.memo(() => {
                 ) : (
                   <Eye className="h-4 w-4" />
                 )}
-                {splitView ? "Hide Code" : "Show Code"}
+                {splitView ? 'Hide Code' : 'Show Code'}
               </Button>
 
               {/* Export Dropdown */}
@@ -245,13 +244,13 @@ const Home: React.FC = React.memo(() => {
                 <div className="absolute right-0 top-full mt-1 bg-popover border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
                   <div className="py-1 min-w-[120px]">
                     <button
-                      onClick={() => handleExportResults("json")}
+                      onClick={() => handleExportResults('json')}
                       className="w-full px-3 py-2 text-sm text-popover-foreground hover:bg-accent text-left"
                     >
                       Export JSON
                     </button>
                     <button
-                      onClick={() => handleExportResults("pdf")}
+                      onClick={() => handleExportResults('pdf')}
                       className="w-full px-3 py-2 text-sm text-popover-foreground hover:bg-accent text-left"
                     >
                       Export PDF
@@ -292,7 +291,7 @@ const Home: React.FC = React.memo(() => {
             {/* Code Editor - Read-only */}
             <Card
               title={`Code${
-                highlightedLine ? ` (Line ${highlightedLine} highlighted)` : ""
+                highlightedLine ? ` (Line ${highlightedLine} highlighted)` : ''
               }`}
             >
               <CodeEditor
@@ -327,7 +326,7 @@ const Home: React.FC = React.memo(() => {
   // Main editor view
   return (
     <div>
-      <Navigation />
+      {/* <Navigation /> */}
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">
@@ -395,10 +394,10 @@ const Home: React.FC = React.memo(() => {
                 <div className="flex items-center space-x-2 self-start sm:self-auto">
                   <span
                     className={`inline-block w-2 h-2 rounded-full ${
-                      code.trim() ? "bg-green-500" : "bg-muted-foreground/50"
+                      code.trim() ? 'bg-green-500' : 'bg-muted-foreground/50'
                     }`}
                   ></span>
-                  <span>{code.trim() ? "Ready" : "Empty"}</span>
+                  <span>{code.trim() ? 'Ready' : 'Empty'}</span>
                 </div>
               </div>
             </div>
@@ -433,7 +432,7 @@ const Home: React.FC = React.memo(() => {
                   disabled={!code.trim() || isLoading}
                   className="w-full"
                 >
-                  {isLoading ? "Analyzing..." : "Analyze Code"}
+                  {isLoading ? 'Analyzing...' : 'Analyze Code'}
                 </Button>
 
                 {isLoading && (
@@ -482,6 +481,6 @@ const Home: React.FC = React.memo(() => {
   );
 });
 
-Home.displayName = "Home";
+Home.displayName = 'Home';
 
 export default Home;

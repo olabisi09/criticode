@@ -1,3 +1,3 @@
-export { ThemeProvider } from "./ThemeContext";
-export { useTheme } from "../hooks/useTheme";
-export type { Theme, ThemeContextType } from "./theme";
+export { ThemeProvider } from './theme-context';
+export { useTheme } from '../hooks/useTheme';
+export type { Theme, ThemeContextType } from './theme';

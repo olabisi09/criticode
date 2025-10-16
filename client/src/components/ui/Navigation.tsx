@@ -1,9 +1,8 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useAuthStore } from "../../store/authStore";
-import { Home, History, User, LogOut, LogIn, Sun, Moon } from "lucide-react";
-import { Button } from "./Button";
-import { useTheme } from "../../hooks/useTheme";
+import { Link, useLocation } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
+import { Home, History, User, LogOut, LogIn, Sun, Moon } from 'lucide-react';
+import { Button } from './Button';
+import { useTheme } from '../../hooks/useTheme';
 
 export const Navigation: React.FC = () => {
   const location = useLocation();
@@ -16,20 +15,20 @@ export const Navigation: React.FC = () => {
 
   const navigationItems = [
     {
-      path: "/",
-      label: "Home",
+      path: '/',
+      label: 'Home',
       icon: Home,
       public: true,
     },
     {
-      path: "/history",
-      label: "History",
+      path: '/history',
+      label: 'History',
       icon: History,
       public: false,
     },
     {
-      path: "/profile",
-      label: "Profile",
+      path: '/profile',
+      label: 'Profile',
       icon: User,
       public: false,
     },
@@ -71,13 +70,13 @@ export const Navigation: React.FC = () => {
                       focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2
                       ${
                         isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                          ? 'bg-primary text-primary-foreground'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-accent'
                       }
                     `
                       .trim()
-                      .replace(/\s+/g, " ")}
-                    aria-current={isActive ? "page" : undefined}
+                      .replace(/\s+/g, ' ')}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     <Icon className="h-4 w-4" aria-hidden="true" />
                     {item.label}
@@ -96,11 +95,11 @@ export const Navigation: React.FC = () => {
             size="sm"
             onClick={toggleTheme}
             aria-label={`Switch to ${
-              theme === "light" ? "dark" : "light"
+              theme === 'light' ? 'dark' : 'light'
             } theme`}
             className="p-2"
           >
-            {theme === "light" ? (
+            {theme === 'light' ? (
               <Moon className="h-4 w-4" aria-hidden="true" />
             ) : (
               <Sun className="h-4 w-4" aria-hidden="true" />
@@ -176,5 +175,3 @@ export const Navigation: React.FC = () => {
     </nav>
   );
 };
-
-export default Navigation;

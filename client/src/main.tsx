@@ -1,9 +1,9 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorBoundary from './components/error-boundary';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from './contexts/ThemeContext';
+import { ThemeProvider } from './contexts/theme-context';
 import { Toaster } from 'sonner';
 
 const root = ReactDOM.createRoot(
@@ -26,7 +26,7 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <App />
-          <Toaster />
+          <Toaster position="top-center" />
         </ThemeProvider>
       </QueryClientProvider>
     </ErrorBoundary>
