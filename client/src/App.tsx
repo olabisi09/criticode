@@ -9,6 +9,7 @@ import {
   ReviewDetail,
   Freestyle,
   Register,
+  Landing,
 } from './pages';
 import { ProtectedRoute } from './components/protected-route';
 import { useTheme } from './hooks/useTheme';
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/" element={<Home />} />
               </Route>
               <Route path="/freestyle" element={<Freestyle />} />
+              <Route path="/landing" element={<Landing />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="/history" element={<History />} />
                 <Route path="/history/:id" element={<ReviewDetail />} />

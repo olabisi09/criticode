@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { Navigation } from '../ui/Navigation';
+import { Navigation } from '../ui/navigation';
 
 const AuthLayout: React.FC = () => {
   return (

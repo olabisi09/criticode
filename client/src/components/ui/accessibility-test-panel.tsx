@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from './Button';
+import { Button } from './button';
 
 interface A11yTestResultProps {
   passed: boolean;
@@ -97,7 +97,7 @@ export const AccessibilityTestPanel: React.FC = () => {
   const score = Math.round((passedTests / totalTests) * 100);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bg-background bottom-4 right-4 z-50">
       {!isVisible ? (
         <Button
           onClick={() => setIsVisible(true)}

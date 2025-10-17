@@ -21,7 +21,7 @@ import { Card } from '../components/ui/Card';
 import { useAnalyzeCode, useUploadFile } from '../hooks/useReviews';
 import { useAuthStore } from '../store/authStore';
 import type { AnalysisResult } from '../types';
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 
 // Supported languages for the language selector
 const supportedLanguages = [
@@ -297,7 +297,9 @@ const Home: React.FC = React.memo(() => {
               <CodeEditor
                 code={code}
                 language={language}
-                onChange={() => {}} // Read-only
+                onChange={() => {
+                  console.log('code editor');
+                }} // Read-only
                 readOnly={true}
               />
             </Card>

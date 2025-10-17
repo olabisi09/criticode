@@ -1,5 +1,5 @@
-import axios, { type AxiosResponse, type AxiosError } from "axios";
-import { toast } from "sonner";
+import axios, { type AxiosResponse, type AxiosError } from 'axios';
+import { toast } from 'sonner';
 
 interface ErrorResponse {
   message?: string;
@@ -7,16 +7,16 @@ interface ErrorResponse {
 }
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   timeout: 30000,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem('authToken');
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -39,11 +39,15 @@ api.interceptors.response.use(
 
       // Redirect to login on 401 (Unauthorized)
       if (status === 401) {
-        localStorage.removeItem("authToken");
-        window.location.href = "/login";
+        if (error.response.config.url === '/auth/login') {
+          return Promise.reject(new Error('Invalid email or password.'));
+        }
+
+        localStorage.removeItem('authToken');
+        window.location.href = '/login';
 
         return Promise.reject(
-          new Error("Session expired. Please log in again.")
+          new Error('Session expired. Please log in again.')
         );
       }
 
@@ -58,12 +62,12 @@ api.interceptors.response.use(
       return Promise.reject(new Error(errorMessage));
     } else if (error.request) {
       // Network error
-      const networkError = "Network error. Please check your connection.";
+      const networkError = 'Network error. Please check your connection.';
       showErrorAlert(networkError);
       return Promise.reject(new Error(networkError));
     } else {
       // Other error
-      const genericError = error.message || "An unexpected error occurred.";
+      const genericError = error.message || 'An unexpected error occurred.';
       showErrorAlert(genericError);
       return Promise.reject(new Error(genericError));
     }

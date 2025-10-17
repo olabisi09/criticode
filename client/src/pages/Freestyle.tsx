@@ -1,6 +1,6 @@
 import { History, Home, Moon } from 'lucide-react';
 import { useTheme } from '../contexts';
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 
 const Freestyle = () => {
   const { toggleTheme } = useTheme();

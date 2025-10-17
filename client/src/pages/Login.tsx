@@ -5,12 +5,12 @@ import { z } from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
+import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/Input';
 import { useAuthStore } from '../store/authStore';
 import { usePostLoginRedirect } from '../utils/auth';
-import { GitHubIcon, GoogleIcon } from '../components/ui/Icons';
-import Divider from '../components/ui/Divider';
+import { GitHubIcon, GoogleIcon } from '../components/ui/icons';
+import { Divider } from '../components/ui/divider';
 
 // Validation schemas
 const loginSchema = z.object({

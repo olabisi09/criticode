@@ -1,14 +1,14 @@
-import api from "./api";
+import api from './api';
 import type {
   User,
   CreateUserInput,
   LoginInput,
   AuthResponse,
   UserResponse,
-} from "../types";
+} from '../types';
 
 // Token storage key
-const TOKEN_KEY = "authToken";
+const TOKEN_KEY = 'authToken';
 
 /**
  * Register a new user
@@ -23,7 +23,7 @@ export const register = async (
   fullName: string
 ): Promise<{ user: User; token: string }> => {
   const payload: CreateUserInput = { email, password, fullName };
-  const response: AuthResponse = await api.post("/auth/register", payload);
+  const response: AuthResponse = await api.post('/auth/register', payload);
 
   // Store token in localStorage
   setToken(response.token);
@@ -45,7 +45,7 @@ export const login = async (
   password: string
 ): Promise<{ user: User; token: string }> => {
   const payload: LoginInput = { email, password };
-  const response: AuthResponse = await api.post("/auth/login", payload);
+  const response: AuthResponse = await api.post('/auth/login', payload);
 
   // Store token in localStorage
   setToken(response.token);
@@ -65,7 +65,7 @@ export const logout = (): void => {
   // Optional: Call backend logout endpoint for any server-side cleanup
   // Note: This is fire-and-forget since JWT tokens are stateless
   try {
-    api.post("/auth/logout").catch(() => {
+    api.post('/auth/logout').catch(() => {
       // Ignore errors since logout should work even if server is unreachable
     });
   } catch {
@@ -78,7 +78,7 @@ export const logout = (): void => {
  * @returns Promise with current user
  */
 export const getCurrentUser = async (): Promise<User> => {
-  const response: UserResponse = await api.get("/auth/me");
+  const response: UserResponse = await api.get('/auth/me');
   return response.user;
 };
 
@@ -87,7 +87,7 @@ export const getCurrentUser = async (): Promise<User> => {
  * @returns Token string or null if not found
  */
 export const getToken = (): string | null => {
-  if (typeof window === "undefined") return null;
+  if (typeof window === 'undefined') return null;
   return localStorage.getItem(TOKEN_KEY);
 };
 
@@ -96,7 +96,7 @@ export const getToken = (): string | null => {
  * @param token - JWT token to store
  */
 export const setToken = (token: string): void => {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
   localStorage.setItem(TOKEN_KEY, token);
 };
 
@@ -104,7 +104,7 @@ export const setToken = (token: string): void => {
  * Remove token from localStorage
  */
 export const removeToken = (): void => {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
   localStorage.removeItem(TOKEN_KEY);
 };
 

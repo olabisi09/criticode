@@ -8,3 +8,4 @@ export const Profile = lazy(() => import('./profile'));
 export const NotFound = lazy(() => import('./not-found'));
 export const ReviewDetail = lazy(() => import('./review-detail'));
 export const Freestyle = lazy(() => import('./freestyle'));
+export const Landing = lazy(() => import('./landing'));
