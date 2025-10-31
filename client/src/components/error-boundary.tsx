@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import type { ErrorInfo, ReactNode } from "react";
-import { AlertTriangle, RefreshCw, Home } from "lucide-react";
-import { Button } from "./ui/Button";
-import { Card } from "./ui/Card";
+import React, { Component } from 'react';
+import type { ErrorInfo, ReactNode } from 'react';
+import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import { Button } from './ui/button';
+import { Card } from './ui/Card';
 
 interface Props {
   children: ReactNode;
@@ -34,10 +34,10 @@ export class ErrorBoundary extends Component<Props, State> {
     };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+  override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // Log error details to console
-    console.error("ErrorBoundary caught an error:", error);
-    console.error("Error details:", errorInfo);
+    console.error('ErrorBoundary caught an error:', error);
+    console.error('Error details:', errorInfo);
 
     // Update state with error info
     this.setState({
@@ -57,7 +57,7 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   handleGoHome = (): void => {
-    window.location.href = "/";
+    window.location.href = '/';
   };
 
   handleReset = (): void => {
@@ -68,7 +68,7 @@ export class ErrorBoundary extends Component<Props, State> {
     });
   };
 
-  render(): ReactNode {
+  override render(): ReactNode {
     if (this.state.hasError) {
       // Custom fallback UI if provided
       if (this.props.fallback) {
@@ -201,7 +201,7 @@ export const ErrorBoundaryWrapper: React.FC<ErrorBoundaryWrapperProps> = ({
 }) => {
   // Create a class component instance that can call the onError callback
   class ErrorBoundaryWithCallback extends ErrorBoundary {
-    componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    override componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
       super.componentDidCatch(error, errorInfo);
 
       // Call the custom onError callback if provided

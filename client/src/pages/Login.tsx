@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/Input';
+import { Input } from '../components/ui/input';
 import { useAuthStore } from '../store/authStore';
 import { usePostLoginRedirect } from '../utils/auth';
 import { GitHubIcon, GoogleIcon } from '../components/ui/icons';

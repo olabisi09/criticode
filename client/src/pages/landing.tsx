@@ -1,10 +1,31 @@
 // import { Button } from '@/components/ui/button';
 // import { MenuIcon } from 'lucide-react';
 
+import { FAQ, Footer } from '@/components/landing-components';
 import useAuthStore from '@/store/authStore';
+import { Clock } from 'lucide-react';
+import { useEffect } from 'react';
 
 const Landing = () => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, logout } = useAuthStore();
+
+  // Force light mode on this page
+  useEffect(() => {
+    const root = document.documentElement;
+    const originalTheme = root.classList.contains('dark') ? 'dark' : 'light';
+
+    // Force light mode
+    root.classList.remove('dark');
+    root.classList.add('light');
+
+    // Cleanup: restore original theme when component unmounts
+    return () => {
+      root.classList.remove('light');
+      if (originalTheme === 'dark') {
+        root.classList.add('dark');
+      }
+    };
+  }, []);
 
   return (
     <div>
@@ -13,7 +34,10 @@ const Landing = () => {
           <h1 className="text-2xl">Criticode</h1>
           {/* <MenuIcon /> */}
           {isAuthenticated ? (
-            <div>Welcome, {user?.fullName || user?.email}!</div>
+            <div>
+              Welcome, {user?.fullName || user?.email}!{' '}
+              <button onClick={logout}>Logout</button>
+            </div>
           ) : (
             <div className="flex items-center space-x-4">
               <a
@@ -80,7 +104,7 @@ const Landing = () => {
             </svg>
           </a>
           <div className="flex w-full max-w-2xl flex-col space-y-4 overflow-hidden pt-8">
-            <h1
+            <h2
               className="text-center text-4xl font-medium leading-tight text-foreground sm:text-5xl md:text-6xl"
               //style="filter: blur(0px); opacity: 1; transform: none;"
             >
@@ -108,7 +132,7 @@ const Landing = () => {
               >
                 code with AI
               </span>
-            </h1>
+            </h2>
             <p
               className="mx-auto max-w-xl text-center text-lg leading-7 text-muted-foreground sm:text-xl sm:leading-9 text-balance"
               //style="opacity: 1; transform: none;"
@@ -151,11 +175,100 @@ const Landing = () => {
               Problem
             </h2>
             <h3 className="mx-auto mt-4 max-w-xs text-3xl font-semibold sm:max-w-none sm:text-4xl md:text-5xl">
-              Staying on top of quality code is hard.
+              Manual code reviews take too long and miss critical issues.
             </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            <div>
+              <div
+                data-slot="card"
+                className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 bg-background border-none shadow-none"
+              >
+                <div data-slot="card-content" className="p-6 space-y-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Clock className="text-primary w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold">
+                    Waiting Days for Reviews
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Your pull requests sit idle while teammates juggle their own
+                    workload. Development velocity grinds to a halt, and
+                    deployment schedules slip. Critical bugs that could've been
+                    caught early make it to production.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                data-slot="card"
+                className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 bg-background border-none shadow-none"
+              >
+                <div data-slot="card-content" className="p-6 space-y-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="lucide lucide-zap w-6 h-6 text-primary"
+                    >
+                      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold">
+                    Inconsistent Feedback
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Traditional code review processes often lead to varying
+                    levels of feedback quality, leaving developers unsure about
+                    the effectiveness of their changes.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                data-slot="card"
+                className="text-card-foreground flex flex-col gap-6 rounded-xl border py-6 bg-background border-none shadow-none"
+              >
+                <div data-slot="card-content" className="p-6 space-y-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="lucide lucide-shield w-6 h-6 text-primary"
+                    >
+                      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold">Security Risks</h3>
+                  <p className="text-muted-foreground">
+                    Without thorough reviews, security vulnerabilities can go
+                    unnoticed, exposing applications to potential threats and
+                    breaches.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+      <FAQ />
+      <Footer />
     </div>
   );
 };

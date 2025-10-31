@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo,
-} from 'react';
+import { memo, useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import {
   AlertCircle,
   RotateCcw,
@@ -23,20 +17,8 @@ import { useAuthStore } from '../store/authStore';
 import type { AnalysisResult } from '../types';
 import { Button } from '@/components/ui/button';
 
-// Supported languages for the language selector
-const supportedLanguages = [
-  { value: 'javascript', label: 'JavaScript' },
-  { value: 'typescript', label: 'TypeScript' },
-  { value: 'python', label: 'Python' },
-  { value: 'java', label: 'Java' },
-  { value: 'cpp', label: 'C++' },
-  { value: 'go', label: 'Go' },
-  { value: 'ruby', label: 'Ruby' },
-  { value: 'php', label: 'PHP' },
-];
-
 // Memoized Home component for better performance
-const Home: React.FC = React.memo(() => {
+const Home: React.FC = memo(() => {
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('javascript');
   const [fileName, setFileName] = useState('');
@@ -63,11 +45,6 @@ const Home: React.FC = React.memo(() => {
   const handleCodeChange = useCallback((newCode: string) => {
     setCode(newCode);
     setError(null);
-  }, []);
-
-  // Memoized language change handler
-  const handleLanguageChange = useCallback((newLanguage: string) => {
-    setLanguage(newLanguage);
   }, []);
 
   // Memoized file select handler
@@ -194,9 +171,6 @@ const Home: React.FC = React.memo(() => {
     setFileName('');
     setError(null);
   };
-
-  const getCharacterCount = () => code.length;
-  const getLineCount = () => code.split('\n').length;
 
   // If we have analysis results, show them
   if (analysisResult) {
@@ -328,8 +302,7 @@ const Home: React.FC = React.memo(() => {
   // Main editor view
   return (
     <div>
-      {/* <Navigation /> */}
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
+      {/* <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">
             AI Code Review
@@ -339,7 +312,7 @@ const Home: React.FC = React.memo(() => {
             practices
           </p>
         </header>
-      </div>
+      </div> */}
 
       {error && (
         <div className="mb-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex items-start space-x-2">
@@ -358,50 +331,11 @@ const Home: React.FC = React.memo(() => {
         <div className="xl:col-span-7">
           <Card title="Code Editor">
             <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
-                <label
-                  htmlFor="language-select"
-                  className="text-sm font-medium text-foreground shrink-0"
-                >
-                  Language:
-                </label>
-                <select
-                  id="language-select"
-                  value={language}
-                  onChange={(e) => handleLanguageChange(e.target.value)}
-                  className="w-full sm:w-auto min-w-[140px] px-3 py-2 text-sm border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition-colors"
-                >
-                  {supportedLanguages.map((lang) => (
-                    <option key={lang.value} value={lang.value}>
-                      {lang.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
               <CodeEditor
                 code={code}
                 language={language}
                 onChange={handleCodeChange}
               />
-
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-muted-foreground bg-muted px-3 py-2 rounded space-y-2 sm:space-y-0">
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <span>Lines: {getLineCount()}</span>
-                  <span>Characters: {getCharacterCount()}</span>
-                  {fileName && (
-                    <span className="truncate">File: {fileName}</span>
-                  )}
-                </div>
-                <div className="flex items-center space-x-2 self-start sm:self-auto">
-                  <span
-                    className={`inline-block w-2 h-2 rounded-full ${
-                      code.trim() ? 'bg-green-500' : 'bg-muted-foreground/50'
-                    }`}
-                  ></span>
-                  <span>{code.trim() ? 'Ready' : 'Empty'}</span>
-                </div>
-              </div>
             </div>
           </Card>
         </div>

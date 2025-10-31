@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { format, formatDistanceToNow } from "date-fns";
-import { toast } from "sonner";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { format, formatDistanceToNow } from 'date-fns';
+import { toast } from 'sonner';
 import {
   User,
   Mail,
@@ -16,7 +16,7 @@ import {
   Save,
   AlertTriangle,
   Trash2,
-} from "lucide-react";
+} from 'lucide-react';
 import {
   LineChart,
   Line,
@@ -25,27 +25,27 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
-import { Card } from "../components/ui/Card";
-import { Button } from "../components/ui/Button";
-import { Badge } from "../components/ui/Badge";
-import { Modal } from "../components/ui/Modal";
-import { ProfileSkeleton, StatsSkeleton } from "../components/ui/Skeleton";
-import { useAuthStore } from "../store/authStore";
-import { useUserStats } from "../hooks/useReviews";
+} from 'recharts';
+import { Card } from '../components/ui/Card';
+import { Button } from '../components/ui/button';
+import { Badge } from '../components/ui/Badge';
+import { Modal } from '../components/ui/Modal';
+import { ProfileSkeleton, StatsSkeleton } from '../components/ui/Skeleton';
+import { useAuthStore } from '../store/authStore';
+import { useUserStats } from '../hooks/useReviews';
 
 // Language options for default preference
 const languageOptions = [
-  { value: "javascript", label: "JavaScript", icon: "🟨" },
-  { value: "python", label: "Python", icon: "🐍" },
-  { value: "typescript", label: "TypeScript", icon: "🔷" },
-  { value: "java", label: "Java", icon: "☕" },
-  { value: "c++", label: "C++", icon: "⚡" },
-  { value: "c#", label: "C#", icon: "🔷" },
-  { value: "go", label: "Go", icon: "🐹" },
-  { value: "rust", label: "Rust", icon: "🦀" },
-  { value: "php", label: "PHP", icon: "🐘" },
-  { value: "ruby", label: "Ruby", icon: "💎" },
+  { value: 'javascript', label: 'JavaScript', icon: '🟨' },
+  { value: 'python', label: 'Python', icon: '🐍' },
+  { value: 'typescript', label: 'TypeScript', icon: '🔷' },
+  { value: 'java', label: 'Java', icon: '☕' },
+  { value: 'c++', label: 'C++', icon: '⚡' },
+  { value: 'c#', label: 'C#', icon: '🔷' },
+  { value: 'go', label: 'Go', icon: '🐹' },
+  { value: 'rust', label: 'Rust', icon: '🦀' },
+  { value: 'php', label: 'PHP', icon: '🐘' },
+  { value: 'ruby', label: 'Ruby', icon: '💎' },
 ];
 
 // Mock chart data (in real app, this would come from useUserStats)
@@ -58,7 +58,7 @@ const generateChartData = (totalReviews: number) => {
     date.setDate(date.getDate() - i);
 
     data.push({
-      date: format(date, "MMM dd"),
+      date: format(date, 'MMM dd'),
       reviews: Math.floor(Math.random() * (totalReviews / 7 + 1)),
     });
   }
@@ -76,17 +76,17 @@ const Profile: React.FC = () => {
   } = useUserStats();
 
   // Local state for preferences
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [defaultLanguage, setDefaultLanguage] = useState("javascript");
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [defaultLanguage, setDefaultLanguage] = useState('javascript');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isUpdatingPreferences, setIsUpdatingPreferences] = useState(false);
 
   // Load preferences from localStorage
   useEffect(() => {
     const savedTheme =
-      (localStorage.getItem("theme") as "light" | "dark") || "light";
+      (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
     const savedLanguage =
-      localStorage.getItem("defaultLanguage") || "javascript";
+      localStorage.getItem('defaultLanguage') || 'javascript';
 
     setTheme(savedTheme);
     setDefaultLanguage(savedLanguage);
@@ -100,12 +100,12 @@ const Profile: React.FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // Save to localStorage
-      localStorage.setItem("theme", theme);
-      localStorage.setItem("defaultLanguage", defaultLanguage);
+      localStorage.setItem('theme', theme);
+      localStorage.setItem('defaultLanguage', defaultLanguage);
 
-      toast.success("Preferences updated successfully!");
+      toast.success('Preferences updated successfully!');
     } catch {
-      toast.error("Failed to update preferences");
+      toast.error('Failed to update preferences');
     } finally {
       setIsUpdatingPreferences(false);
     }
@@ -116,17 +116,17 @@ const Profile: React.FC = () => {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      toast.success("Account deleted successfully");
+      toast.success('Account deleted successfully');
       logout();
-      navigate("/login");
+      navigate('/login');
     } catch {
-      toast.error("Failed to delete account");
+      toast.error('Failed to delete account');
       setShowDeleteModal(false);
     }
   };
 
   const handleEditProfile = () => {
-    toast.info("Profile editing coming soon!");
+    toast.info('Profile editing coming soon!');
   };
 
   // Don't render if user data not available
@@ -165,7 +165,7 @@ const Profile: React.FC = () => {
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Calendar className="h-4 w-4" />
                     <span>
-                      Joined {format(new Date(user.createdAt), "MMMM yyyy")}
+                      Joined {format(new Date(user.createdAt), 'MMMM yyyy')}
                     </span>
                   </div>
                 </div>
@@ -287,7 +287,7 @@ const Profile: React.FC = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="font-medium text-gray-900 truncate">
-                                {review.fileName || "Code Snippet"}
+                                {review.fileName || 'Code Snippet'}
                               </div>
                               <div className="text-sm text-gray-600 flex items-center gap-4">
                                 <span>{review.language}</span>
@@ -332,7 +332,7 @@ const Profile: React.FC = () => {
                             dataKey="reviews"
                             stroke="#3b82f6"
                             strokeWidth={2}
-                            dot={{ fill: "#3b82f6" }}
+                            dot={{ fill: '#3b82f6' }}
                           />
                         </LineChart>
                       </ResponsiveContainer>
@@ -350,7 +350,7 @@ const Profile: React.FC = () => {
                 <Button
                   variant="primary"
                   className="mt-3"
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate('/')}
                 >
                   Start Analyzing
                 </Button>
@@ -368,16 +368,16 @@ const Profile: React.FC = () => {
                 </label>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <Button
-                    variant={theme === "light" ? "primary" : "secondary"}
-                    onClick={() => setTheme("light")}
+                    variant={theme === 'light' ? 'primary' : 'secondary'}
+                    onClick={() => setTheme('light')}
                     className="flex items-center justify-center sm:justify-start gap-2 min-h-[44px]"
                   >
                     <Sun className="h-4 w-4" />
                     Light
                   </Button>
                   <Button
-                    variant={theme === "dark" ? "primary" : "secondary"}
-                    onClick={() => setTheme("dark")}
+                    variant={theme === 'dark' ? 'primary' : 'secondary'}
+                    onClick={() => setTheme('dark')}
                     className="flex items-center justify-center sm:justify-start gap-2 min-h-[44px]"
                   >
                     <Moon className="h-4 w-4" />

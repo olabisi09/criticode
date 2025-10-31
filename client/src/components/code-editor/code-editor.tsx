@@ -93,7 +93,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
 
     return (
       <div className="w-full">
-        {/* Language Selector */}
         <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
           <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
             <label
@@ -123,7 +122,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
             </select>
           </div>
 
-          {/* Theme Display */}
           <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
             <span className="text-sm font-medium text-foreground">Theme:</span>
             <span className="px-3 py-2 text-sm border border-input rounded-md bg-muted text-muted-foreground self-start sm:self-auto">
@@ -132,7 +130,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
           </div>
         </div>
 
-        {/* Monaco Editor */}
         <div className="border border-border rounded-lg overflow-hidden">
           <Suspense fallback={<EditorLoading height={editorHeight} />}>
             <MemoizedMonacoEditor
@@ -146,10 +143,17 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
           </Suspense>
         </div>
 
-        {/* Editor Info */}
         <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
           <div>
             Lines: {code.split('\n').length} | Characters: {code.length}
+          </div>
+          <div className="flex items-center space-x-2 self-start sm:self-auto">
+            <span
+              className={`inline-block w-2 h-2 rounded-full ${
+                code.trim() ? 'bg-green-500' : 'bg-muted-foreground/50'
+              }`}
+            ></span>
+            <span>{code.trim() ? 'Ready' : 'Empty'}</span>
           </div>
           {readOnly && (
             <div className="flex items-center space-x-1">

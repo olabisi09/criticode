@@ -97,14 +97,12 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
-      {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal Content */}
       <div
         ref={modalRef}
         className={`
@@ -121,7 +119,6 @@ export const Modal: React.FC<ModalProps> = ({
         aria-labelledby={title ? 'modal-title' : undefined}
         aria-describedby="modal-content"
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border">
           {title && (
             <h2
@@ -153,7 +150,6 @@ export const Modal: React.FC<ModalProps> = ({
           </button>
         </div>
 
-        {/* Content */}
         <div id="modal-content" className="p-4 sm:p-6">
           {children}
         </div>

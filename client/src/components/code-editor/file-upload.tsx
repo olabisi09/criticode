@@ -1,5 +1,5 @@
-import React, { useState, useRef, useCallback } from "react";
-import { Upload, X, File, AlertCircle } from "lucide-react";
+import React, { useState, useRef, useCallback } from 'react';
+import { Upload, X, File, AlertCircle } from 'lucide-react';
 
 interface FileUploadProps {
   onFileSelect: (file: {
@@ -12,46 +12,46 @@ interface FileUploadProps {
 
 // Default accepted extensions with their corresponding languages
 const defaultExtensions = [
-  ".js",
-  ".jsx",
-  ".ts",
-  ".tsx",
-  ".py",
-  ".java",
-  ".cpp",
-  ".c",
-  ".h",
-  ".go",
-  ".rb",
-  ".php",
-  ".cs",
-  ".swift",
-  ".kt",
-  ".dart",
-  ".rs",
-  ".scala",
+  '.js',
+  '.jsx',
+  '.ts',
+  '.tsx',
+  '.py',
+  '.java',
+  '.cpp',
+  '.c',
+  '.h',
+  '.go',
+  '.rb',
+  '.php',
+  '.cs',
+  '.swift',
+  '.kt',
+  '.dart',
+  '.rs',
+  '.scala',
 ];
 
 // Map file extensions to languages
 const extensionToLanguage: Record<string, string> = {
-  ".js": "javascript",
-  ".jsx": "javascript",
-  ".ts": "typescript",
-  ".tsx": "typescript",
-  ".py": "python",
-  ".java": "java",
-  ".cpp": "cpp",
-  ".c": "cpp",
-  ".h": "cpp",
-  ".go": "go",
-  ".rb": "ruby",
-  ".php": "php",
-  ".cs": "csharp",
-  ".swift": "swift",
-  ".kt": "kotlin",
-  ".dart": "dart",
-  ".rs": "rust",
-  ".scala": "scala",
+  '.js': 'javascript',
+  '.jsx': 'javascript',
+  '.ts': 'typescript',
+  '.tsx': 'typescript',
+  '.py': 'python',
+  '.java': 'java',
+  '.cpp': 'cpp',
+  '.c': 'cpp',
+  '.h': 'cpp',
+  '.go': 'go',
+  '.rb': 'ruby',
+  '.php': 'php',
+  '.cs': 'csharp',
+  '.swift': 'swift',
+  '.kt': 'kotlin',
+  '.dart': 'dart',
+  '.rs': 'rust',
+  '.scala': 'scala',
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -80,10 +80,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       // Check file extension
       const extension = file.name
         .toLowerCase()
-        .substring(file.name.lastIndexOf("."));
+        .substring(file.name.lastIndexOf('.'));
       if (!acceptedExtensions.includes(extension)) {
         return `File type "${extension}" is not supported. Accepted types: ${acceptedExtensions.join(
-          ", "
+          ', '
         )}`;
       }
 
@@ -95,8 +95,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const detectLanguage = useCallback((fileName: string): string => {
     const extension = fileName
       .toLowerCase()
-      .substring(fileName.lastIndexOf("."));
-    return extensionToLanguage[extension] || "text";
+      .substring(fileName.lastIndexOf('.'));
+    return extensionToLanguage[extension] || 'text';
   }, []);
 
   const readFileContent = useCallback((file: File): Promise<string> => {
@@ -107,12 +107,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         if (event.target?.result) {
           resolve(event.target.result as string);
         } else {
-          reject(new Error("Failed to read file content"));
+          reject(new Error('Failed to read file content'));
         }
       };
 
       reader.onerror = () => {
-        reject(new Error("Error reading file"));
+        reject(new Error('Error reading file'));
       };
 
       reader.readAsText(file);
@@ -146,7 +146,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           language,
         });
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to process file");
+        setError(err instanceof Error ? err.message : 'Failed to process file');
       } finally {
         setIsLoading(false);
       }
@@ -203,13 +203,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     setSelectedFile(null);
     setError(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   }, []);
 
   return (
     <div className="w-full">
-      {/* File Upload Zone */}
       <div
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -221,19 +220,19 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           transition-colors duration-200 min-h-[200px] flex flex-col items-center justify-center
           ${
             isDragOver
-              ? "border-blue-500 bg-blue-50"
-              : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"
+              ? 'border-blue-500 bg-blue-50'
+              : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
           }
-          ${isLoading ? "cursor-not-allowed opacity-50" : ""}
+          ${isLoading ? 'cursor-not-allowed opacity-50' : ''}
         `
           .trim()
-          .replace(/\s+/g, " ")}
+          .replace(/\s+/g, ' ')}
       >
         <input
           ref={fileInputRef}
           type="file"
           onChange={handleFileSelect}
-          accept={acceptedExtensions.join(",")}
+          accept={acceptedExtensions.join(',')}
           disabled={isLoading}
           className="hidden"
         />
@@ -247,27 +246,26 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           <>
             <Upload
               className={`h-12 w-12 mb-4 ${
-                isDragOver ? "text-blue-500" : "text-gray-400"
+                isDragOver ? 'text-blue-500' : 'text-gray-400'
               }`}
             />
             <p
               className={`text-lg font-medium mb-2 ${
-                isDragOver ? "text-blue-700" : "text-gray-700"
+                isDragOver ? 'text-blue-700' : 'text-gray-700'
               }`}
             >
               {isDragOver
-                ? "Drop file here"
-                : "Drag file here or click to browse"}
+                ? 'Drop file here'
+                : 'Drag file here or click to browse'}
             </p>
             <p className="text-sm text-gray-500 mb-4">
-              Supports: {acceptedExtensions.join(", ")}
+              Supports: {acceptedExtensions.join(', ')}
             </p>
             <p className="text-xs text-gray-400">Maximum file size: 2MB</p>
           </>
         )}
       </div>
 
-      {/* Error Message */}
       {error && (
         <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md flex items-start space-x-2">
           <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
@@ -278,7 +276,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         </div>
       )}
 
-      {/* Selected File Display */}
       {selectedFile && !error && (
         <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-md">
           <div className="flex items-center justify-between">
@@ -302,7 +299,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         </div>
       )}
 
-      {/* Accepted Extensions Info */}
       <div className="mt-4 text-xs text-gray-500">
         <p className="font-medium mb-1">Supported file types:</p>
         <div className="grid grid-cols-4 md:grid-cols-8 gap-2">

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Spinner } from './spinner';
 
 interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'danger';
+  variant?: 'primary' | 'secondary' | 'danger' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   disabled?: boolean;
   loading?: boolean;
@@ -23,6 +23,8 @@ const variantClasses = {
     'bg-transparent text-secondary-foreground hover:bg-secondary/80 focus:ring-secondary',
   danger:
     'bg-destructive text-destructive-foreground hover:bg-destructive/90 focus:ring-destructive',
+  ghost:
+    'bg-transparent text-foreground !px-0 !py-0 border-none hover:text-foreground',
 };
 
 const sizeClasses = {

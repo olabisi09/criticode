@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '../components/ui/Button';
+import { Button } from '../components/ui/button';
 
 // Test component that throws an error when clicked (only shown in development)
 export const ErrorTestComponent: React.FC = () => {

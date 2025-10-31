@@ -20,11 +20,11 @@ import {
   Loader2,
 } from 'lucide-react';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
+import { Button } from '../components/ui/button';
+import { PlainInput } from '../components/ui/input';
 import { Badge } from '../components/ui/Badge';
-import { Modal } from '../components/ui/Modal';
-import { ReviewCardSkeleton } from '../components/ui/Skeleton';
+import { Modal } from '../components/ui/modal';
+import { ReviewCardSkeleton } from '../components/ui/skeleton';
 
 import { useReviews, useDeleteReview } from '../hooks/useReviews';
 import type { Review, ReviewFilters } from '../types';
@@ -308,12 +308,10 @@ const History: React.FC = () => {
         </p>
       </div>
 
-      {/* Filters */}
       <div className="mb-6 space-y-4 md:space-y-0 md:flex md:items-start md:gap-4">
-        {/* Search */}
         <div className="relative flex-1 md:max-w-sm lg:max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
+          <PlainInput
             name="search"
             type="text"
             placeholder="Search reviews..."

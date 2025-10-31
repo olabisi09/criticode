@@ -1,0 +1,13 @@
+.accordion .accordion-content {
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  overflow: hidden;
+  transition: transform 260ms cubic-bezier(.2,.8,.2,1), opacity 200ms ease;
+  will-change: transform, opacity;
+}
+
+details.accordion[open] .accordion-content {
+  transform: scaleY(1);
+  opacity: 1;
+}

@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { Home, History, User, LogOut, LogIn, Sun, Moon } from 'lucide-react';
-import { Button } from './Button';
+import { Button } from './button';
 import { useTheme } from '../../hooks/useTheme';
 
 export const Navigation: React.FC = () => {

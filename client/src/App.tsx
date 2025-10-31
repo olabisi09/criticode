@@ -54,11 +54,12 @@ function App() {
         >
           <main id="main-content" role="main">
             <Routes>
+              <Route path="/" element={<Landing />} />
               <Route element={<ReviewLayout />}>
-                <Route path="/" element={<Home />} />
+                <Route path="/app" element={<Home />} />
               </Route>
               <Route path="/freestyle" element={<Freestyle />} />
-              <Route path="/landing" element={<Landing />} />
+
               <Route element={<ProtectedRoute />}>
                 <Route path="/history" element={<History />} />
                 <Route path="/history/:id" element={<ReviewDetail />} />

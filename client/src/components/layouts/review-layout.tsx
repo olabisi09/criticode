@@ -1,25 +1,63 @@
-import { History, Home, Moon } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ChevronDown, History, Home, Moon } from 'lucide-react';
+import { Button } from '../ui/button';
 import { useTheme } from '../../contexts';
-import { Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const ReviewLayout = () => {
   const { toggleTheme } = useTheme();
   return (
     <div className="flex h-screen w-full">
-      <aside className="h-screen fixed top-0 left-0 z-50 border-r border-black/[7%] w-[15rem]">
-        <h1 className="text-4xl font-bold h-18 border-b border-b-black/[7%]">
-          Criticode
-        </h1>
+      <aside className="h-screen fixed top-0 left-0 z-50 bg-background border-r border-black/[7%] w-[15rem]">
+        <div className="flex items-center gap-2 px-4 h-18 border-b border-b-black/[7%]">
+          <div className="bg-accent text-accent-foreground w-12 h-12 rounded-md flex items-center justify-center font-bold">
+            C
+          </div>
+          <div>
+            <h1 className="font-medium">Olabisi</h1>
+            {/* <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost">
+                  Options
+                  <ChevronDown className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>Hey</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu> */}
+          </div>
+        </div>
         <section className="p-4">
           <ul className="font-medium *:cursor-pointer">
-            <li className="flex items-center gap-2 px-2 hover:bg-nav-background rounded py-2">
-              <Home className="w-4 h-4" />
-              <span>Home</span>
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `flex items-center gap-2 px-2 rounded py-2 ${
+                    isActive
+                      ? 'bg-nav-background font-semibold'
+                      : 'hover:bg-nav-background'
+                  }`
+                }
+              >
+                <Home className="w-4 h-4" />
+                <span>Home</span>
+              </NavLink>
             </li>
-            <li className="flex items-center gap-2 px-2 hover:bg-nav-background rounded py-2">
-              <History className="w-4 h-4" />
-              <span>Review History</span>
+            <li>
+              <NavLink
+                to="/history"
+                className={({ isActive }) =>
+                  `flex items-center gap-2 px-2 rounded py-2 ${
+                    isActive
+                      ? 'bg-nav-background font-semibold'
+                      : 'hover:bg-nav-background'
+                  }`
+                }
+              >
+                <History className="w-4 h-4" />
+                <span>Review History</span>
+              </NavLink>
             </li>
           </ul>
         </section>
@@ -31,7 +69,7 @@ const ReviewLayout = () => {
             <Moon />
           </Button>
         </header>
-        <div className="p-4 mt-18">
+        <div className="p-4 mt-18 bg-background">
           <Outlet />
         </div>
       </div>
