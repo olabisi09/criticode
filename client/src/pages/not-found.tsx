@@ -6,7 +6,7 @@ const NotFound: React.FC = () => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate('/');
+    navigate('/app');
   };
 
   const handleGoBack = () => {
@@ -93,7 +93,7 @@ const NotFound: React.FC = () => {
           <p className="text-gray-500 mb-4">Or explore these sections:</p>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate('/app')}
               className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
             >
               Code Analysis

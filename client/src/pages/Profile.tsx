@@ -350,7 +350,7 @@ const Profile: React.FC = () => {
                 <Button
                   variant="primary"
                   className="mt-3"
-                  onClick={() => navigate('/')}
+                  onClick={() => navigate('/app')}
                 >
                   Start Analyzing
                 </Button>
