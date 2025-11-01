@@ -9,6 +9,7 @@ const Freestyle = () => {
       <aside className="h-screen border-r border-black/[7%] w-[20rem]">
         <h1 className="text-4xl font-bold h-18 border-b border-b-black/[7%]">
           Criticode
+          {/* Criticode again */}
         </h1>
         <section className="p-4">
           <ul className="font-medium *:cursor-pointer">
