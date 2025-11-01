@@ -11,7 +11,7 @@ import { EditorLoading, MemoizedMonacoEditor } from './lazy-monaco-editor';
 interface CodeEditorProps {
   code: string;
   language: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   readOnly?: boolean;
 }
 
@@ -55,7 +55,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = React.memo(
     const handleEditorChange = useCallback(
       (value: string | undefined) => {
         if (value !== undefined) {
-          onChange(value);
+          onChange?.(value);
         }
       },
       [onChange]

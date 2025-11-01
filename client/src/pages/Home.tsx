@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import { CodeEditor } from '../components/code-editor/code-editor';
 import { FileUpload } from '../components/code-editor/file-upload';
 import { AnalysisResults } from '../components/review-results/analysis-results';
-import { Card } from '../components/ui/Card';
+import { Card } from '../components/ui/card';
 import { useAnalyzeCode, useUploadFile } from '../hooks/useReviews';
 import { useAuthStore } from '../store/authStore';
 import type { AnalysisResult } from '../types';

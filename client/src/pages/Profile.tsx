@@ -26,11 +26,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Card } from '../components/ui/Card';
+import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/Badge';
-import { Modal } from '../components/ui/Modal';
-import { ProfileSkeleton, StatsSkeleton } from '../components/ui/Skeleton';
+import { Badge } from '../components/ui/badge';
+import { Modal } from '../components/ui/modal';
+import { ProfileSkeleton, StatsSkeleton } from '../components/ui/skeleton';
 import { useAuthStore } from '../store/authStore';
 import { useUserStats } from '../hooks/useReviews';
 

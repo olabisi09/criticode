@@ -14,10 +14,10 @@ import {
   CheckCircle,
   RefreshCw,
 } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/Badge';
-import { Modal } from '../components/ui/Modal';
+import { Badge } from '../components/ui/badge';
+import { Modal } from '../components/ui/modal';
 
 import { CodeEditor } from '../components/code-editor/code-editor';
 import { AnalysisResults } from '../components/review-results/analysis-results';
@@ -312,7 +312,6 @@ const ReviewDetail: React.FC = () => {
               <CodeEditor
                 code={review.codeSnippet}
                 language={review.language}
-                onChange={() => {}} // Read-only
                 readOnly={true}
               />
             </div>

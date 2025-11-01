@@ -19,10 +19,10 @@ import {
   AlertCircle,
   Loader2,
 } from 'lucide-react';
-import { Card } from '../components/ui/Card';
+import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { PlainInput } from '../components/ui/input';
-import { Badge } from '../components/ui/Badge';
+import { Badge } from '../components/ui/badge';
 import { Modal } from '../components/ui/modal';
 import { ReviewCardSkeleton } from '../components/ui/skeleton';
 

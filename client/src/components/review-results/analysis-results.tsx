@@ -1,37 +1,37 @@
-import React, { useState, useCallback, useMemo } from "react";
-import { Copy, CheckCircle, MapPin } from "lucide-react";
-import { Card } from "../ui/Card";
-import { Badge } from "../ui/Badge";
-import type { AnalysisResult, SecurityIssue } from "../../types";
+import React, { useState, useCallback, useMemo } from 'react';
+import { Copy, CheckCircle, MapPin } from 'lucide-react';
+import { Card } from '../ui/card';
+import { Badge } from '../ui/badge';
+import type { AnalysisResult, SecurityIssue } from '../../types';
 
 interface AnalysisResultsProps {
   analysisResult: AnalysisResult;
   onLineClick?: (lineNumber: number) => void;
 }
 
-type TabType = "security" | "performance" | "bestPractices" | "refactoring";
+type TabType = 'security' | 'performance' | 'bestPractices' | 'refactoring';
 
 const tabLabels = {
-  security: "Security",
-  performance: "Performance",
-  bestPractices: "Best Practices",
-  refactoring: "Refactoring",
+  security: 'Security',
+  performance: 'Performance',
+  bestPractices: 'Best Practices',
+  refactoring: 'Refactoring',
 };
 
 // Severity color mapping for security issues
 const severityVariants: Record<
-  SecurityIssue["severity"],
-  "error" | "warning" | "info"
+  SecurityIssue['severity'],
+  'error' | 'warning' | 'info'
 > = {
-  Critical: "error",
-  High: "error",
-  Medium: "warning",
-  Low: "info",
+  Critical: 'error',
+  High: 'error',
+  Medium: 'warning',
+  Low: 'info',
 };
 
 export const AnalysisResults: React.FC<AnalysisResultsProps> = React.memo(
   ({ analysisResult, onLineClick }) => {
-    const [activeTab, setActiveTab] = useState<TabType>("security");
+    const [activeTab, setActiveTab] = useState<TabType>('security');
     const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
     // Memoized clipboard copy function
@@ -41,7 +41,7 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = React.memo(
         setCopiedCode(id);
         setTimeout(() => setCopiedCode(null), 2000);
       } catch (err) {
-        console.error("Failed to copy code:", err);
+        console.error('Failed to copy code:', err);
       }
     }, []);
 
@@ -379,13 +379,13 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = React.memo(
 
     const renderTabContent = () => {
       switch (activeTab) {
-        case "security":
+        case 'security':
           return renderSecurityIssues();
-        case "performance":
+        case 'performance':
           return renderPerformanceIssues();
-        case "bestPractices":
+        case 'bestPractices':
           return renderBestPracticeIssues();
-        case "refactoring":
+        case 'refactoring':
           return renderRefactoringOpportunities();
         default:
           return null;
@@ -443,12 +443,12 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = React.memo(
                 py-2 px-1 border-b-2 font-medium text-sm transition-colors
                 ${
                   activeTab === tab
-                    ? "border-blue-500 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                    ? 'border-blue-500 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }
               `
                   .trim()
-                  .replace(/\s+/g, " ")}
+                  .replace(/\s+/g, ' ')}
               >
                 {tabLabels[tab]}
                 {(() => {
@@ -457,8 +457,8 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = React.memo(
                     <span
                       className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
                         activeTab === tab
-                          ? "bg-blue-100 text-blue-600"
-                          : "bg-gray-100 text-gray-600"
+                          ? 'bg-blue-100 text-blue-600'
+                          : 'bg-gray-100 text-gray-600'
                       }`}
                     >
                       {count}
@@ -477,6 +477,6 @@ export const AnalysisResults: React.FC<AnalysisResultsProps> = React.memo(
   }
 );
 
-AnalysisResults.displayName = "AnalysisResults";
+AnalysisResults.displayName = 'AnalysisResults';
 
 export default AnalysisResults;
